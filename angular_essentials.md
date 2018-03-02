@@ -14,6 +14,38 @@ nouveau component:
     ng component components/user
 
 
+## Ajouter bootstrap
+
+installer bootstrap et ngx-bootstrap:
+
+        npm install ngx-bootstrap bootstrap --save
+
+
+ouvrir src/app/app.module.ts et ajouter:
+
+    import { AlertModule } from 'ngx-bootstrap';
+    ...
+        @NgModule({
+           ...
+           imports: [AlertModule.forRoot(), ... ],
+            ...
+        })
+
+ouvrir .angular-cli.json and insert a new entry into the styles array
+
+        "styles": [
+           "../node_modules/bootstrap/dist/css/bootstrap.min.css",
+          "styles.css",
+        ],
+
+open src/app/app.component.html and add
+
+    <alert type="success">hello</alert>
+
+Ca devrait etre OK.
+
+
+
 ## Component structure
 
 Créer un nouveau component:
