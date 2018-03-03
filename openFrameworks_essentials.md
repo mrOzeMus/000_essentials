@@ -35,6 +35,7 @@ Fonctions dans setup:
     ofDisableAlphaBlending();
 
 
+
 Fonctions utiles:
 
     ofRandom(50,200);
@@ -44,6 +45,13 @@ Fonctions utiles:
     a.distance(b) // calcule la distance Euclidienne entre les points a et b.
     getNormalAtIndexInterpolated(...);
     getTangentAtIndexInterpolated(...);
+    ofTranslate(150,0);
+    ofRotate(45);
+    ofScale(0.5,0.5);
+    ofPushMatrix();
+    ofPopMatrix();
+    ofSetRectMode(OF_RECTMODE_CENTER);
+    ofVideoPlayer player; //puis player.loadMovie("movie.mov")
 
 
 
@@ -118,3 +126,193 @@ La sauvegarde du screenshot est placée dans ./bin/data/ du répertoire du proje
 Voir les fonctions arc(...), arcNegative(...) et bezierTo(...) pour d'autres facons de dessiner des polylignes.
 
 Voir la fonction simplify pour simplifier une courbe selon une certaine tolerance. (Voir aussi fonction tolerance()).
+
+
+## Sauvegarder en pdf
+
+Il faut utiliser une foncion beginSave et EndSave. Il est recommandé de définir une variable isSavingPdf qui est activée losqu'on appuie sur une touche.
+
+    if (isSavingPdf){
+      ofBeginSaveScreenAsPDF("savedScreenShot_" + offGetTimestampString()+".pdf");
+    }
+    ...
+    //Drawing code
+    ...
+    if(isSavingPdf){
+      ofEndSaveScreenAsPDF();
+      isSavingPDF = false;
+    }
+
+
+## Création de classe
+
+Exemple de création de la classe Ball. Fichier ball.h:
+
+    #ifndef _BALL // if this class hasn't been defined, the program can define it
+    #define _BALL // by using this if statement you prevent the class to be called more than once which would confuse the compiler
+    #include "ofMain.h" // we need to include this to have a reference to the openFrameworks framework
+    class Ball {
+
+        public: // place public functions or variables declarations here
+
+        // methods, equivalent to specific functions of your class objects
+        void setup();	// setup method, use this to setup your object's initial state
+        void update();  // update method, used to refresh your objects properties
+        void draw();    // draw method, this where you'll do the object's drawing
+
+        // variables
+        float x;        // position
+        float y;
+        float speedY;   // speed and direction
+        float speedX;
+        int dim;        // size
+        ofColor color;  // color using ofColor type
+
+        Ball();  // constructor - used to initialize an object, if no properties are passed the program sets them to the default value
+        private: // place private functions or variables declarations here
+    }; // don't forget the semicolon!
+    #endif
+
+
+Puis le fichier Ball.cpp:
+
+    #include "Ball.h"
+    Ball::Ball(){
+    }
+    void Ball::setup(){
+        x = ofRandom(0, ofGetWidth());      // give some random positioning
+        y = ofRandom(0, ofGetHeight());
+        speedX = ofRandom(-1, 1);           // and random speed and direction
+        speedY = ofRandom(-1, 1);
+        dim = 20;
+        color.set(ofRandom(255),ofRandom(255),ofRandom(255));
+    }
+
+    void Ball::update(){
+        if(x < 0 ){
+            x = 0;
+            speedX *= -1;
+        } else if(x > ofGetWidth()){
+            x = ofGetWidth();
+            speedX *= -1;
+        }
+        if(y < 0 ){
+            y = 0;
+            speedY *= -1;
+        } else if(y > ofGetHeight()){
+            y = ofGetHeight();
+            speedY *= -1;
+        }
+        x+=speedX;
+        y+=speedY;
+    }
+    void Ball::draw(){
+        ofSetColor(color);
+        ofDrawCircle(x, y, dim);
+    }
+
+Ensuite inclure Ball.h dans le header ofApp.h
+
+    #include "Ball.h"
+    class ofApp : public ofBaseApp{
+      public:
+      ...
+      ...
+      Ball myBall;
+    }
+
+Enfin dans ofApp.cpp
+
+    dans Setup:
+    myBall.setup();
+    dans update:
+    myBall.update();
+    dans draw:
+    myBall.draw();
+
+
+> **Pour définir une array de Balls provenant de cett classe**
+
+Dans ofApp.h, après les include, définir un nombre constant avec #define
+
+    #define NBALLS 10
+
+et déclarer l'array de Balls dans le mème fichier
+
+    Ball groupOfBalls[NBALLS];
+
+enfin dans ofApp.cpp faire les calculs avec cette array
+
+    dans Setup:
+    for(int i=0; i<NBALLS; i++){
+      groupOfBalls[i].setup();
+    }
+    et de même dans update et draw:
+    ...
+    groupOfBalls[i].update() et groupOfBalls[i].draw();
+
+
+### permettre les variables dans la classe
+
+Dans Ball.h:
+
+    public:
+      void setup(float _x, float _y, int _dim);
+
+Dans Ball.cpp:
+
+    void Ball::setup(float _x, float _y, int _dim){
+      x= _x;
+      y= _y;
+      dim = _dim;
+    }
+
+Dans ofApp.cpp dans le setup:
+
+    for(int i=0; i<NBALLS; i++){
+      int size = (i + 1)*10;
+      int randomX = ofRandom(0, ofGetWidth());
+      int randomY = ofRandom(0, ofGetHeight());
+      groupOfBalls[i].setup(randomX, randomY, size);
+    }
+
+
+### !! Utiliser array de longeur variable d'objets pour les classes
+
+>**Déclarer dans ofApp.h:**
+
+    vector <Ball> groupOfBalls
+
+>**dans ofApp.cpp:**
+
+    dans mouseDragged:
+    Ball tempBall; //utilisation d'une Ball temporaire
+    tempBall.setup(x,y,ofRandom(10,40));
+    groupOfBalls.push_back(tempBall); //stockage de la tempBall dans le vector groupOfBalls
+
+    dans update et draw:
+    for(int i=0; i<groupOfBalls.size(); i++){
+      groupOfBalls[i].update et groupOfBalls[i].draw();
+    }
+
+De cette facon le on génére des Balls à chaque fois qu'on clique ce qui donne une "array" d'objects qui varie sans cesse.
+
+
+### Méthode complémentaire au précédent chapitre: Ajouter et supprimer en utilisant les vecteurs
+
+Dans notre exemple, on va essayer de faire en sorte de pouvoir supprimer une Ball en cliquant dessus:
+
+    for (int i=0; i< groupOfBalls.size(); i++){
+      float distance = ofDist(x,y, groupOfBalls[i].x, groupOfBalls[i].y);
+      if(distance < groupOfBalls[i].dim){
+        groupOfBalls.erase(groupOfBalls.begin()+i); // méthode pour supprimer
+      }
+    }
+
+On peut tout aussi tout supprimer avec:
+
+    groupOfBalls.clear();
+
+
+
+continuer a approaches animation
