@@ -52,7 +52,13 @@ Fonctions utiles:
     ofPopMatrix();
     ofSetRectMode(OF_RECTMODE_CENTER);
     ofVideoPlayer player; //puis player.loadMovie("movie.mov")
-
+    ofGetFrameRate();
+    ofPos += ofGetLastFrameTime() * speed // permet de donner une vitesse fixe quoiqu'il arrive même avec une grosse charge CPU.
+    ofGetElapsedTimef();
+    ofGetElapsedTimeMillis();
+    ofGetFrameNum();
+	ofNoise();
+	
 
 
 ## Détecter un clic basique
@@ -315,4 +321,49 @@ On peut tout aussi tout supprimer avec:
 
 
 
-continuer a approaches animation
+
+## Interpolation, animation
+
+Pour une animation on peut utiliser une méthode d'interpolation:
+
+		void rectangle::interpolateByPct(float myPct){
+		pos.x = (1-pct) * posa.x + (pct) * posb.x;
+		pos.y = (1-pct) * posa.y + (pct) * posb.y;
+		}
+
+(voir http://openframeworks.cc/ofBook/chapters/animation.html pour plus d'infos). C'est une méthode qui semble vraiment cool avec différents possibilités mathématiques au niveau du déplacement. Voir aussi les exemples sur https://github.com/openframeworks/ofBook/tree/master/chapters/animation/code. (voir rectangle_interpolate)
+
+
+## Travailler avec des images
+
+> Déclarer l'image dans le header.
+
+		ofImage myImage;
+		
+> La définir dans Setup.
+
+		myImage.loadImage("lincoln.png");
+		myImage.setImageType(OF_IMAGE_GRAYSCALE);
+		
+> Utiliser l'image dans draw.
+
+		int imgWidth = myImage.getWidth();
+		int imgHeight = myImage.getHeight();
+		myImage.draw(10, 10, imgWidth * 10, imgHeight * 10);
+	
+Note: L'image peut aussi provenir d'une vidéo, on utilise alors ofVideoGrabber. puis ofImage::grabScreen().
+
+Note: on peut aussi charger des images directement depuis internet. Exemple: myImage.loadImage('http://en.wikipedia.org/wiki..../example.jpg');
+
+
+
+## Travailler avec une Webcam
+
+Déclarer dans le header: ofVideoGrabber cam;
+Dans Setup: cam.setup(320,240) ou cam.initGrabber(320,240);
+Dans Update: cam.update();
+Dand Draw: cam.draw(0,0);
+
+
+
+** A reprendre a experimental game development.
