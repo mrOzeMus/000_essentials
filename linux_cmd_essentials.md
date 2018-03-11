@@ -20,3 +20,11 @@ sudo !! : relancer la commande précédente en admin
 sudo su : switch user
 sudo apt-get install bluefish : installer l'éditeur bloofish
 apt-cache search bluefish* : chercher dans un répertoire
+
+
+
+
+
+
+
+## Workshop
