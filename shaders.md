@@ -117,3 +117,92 @@ On peut également soustraire c-=Circle(...).
 > Affecter une couleur
 
 On peut multiplier par vec3 col = vec3(1.0,.0,.0) pour changer le noir et blanc par une couleur particulière.
+
+> Scale et translate
+
+Pour pouvoir réutiliser une fonction on passe en parametre un vecteur de translation et un vecteur de scale.
+
+        uv += p;
+        uv /= p;
+
+## Créer une bande de séparation
+
+Exemple de création de Bande:
+
+    float Band(float t, float start, float end, float blur){
+        float step1= smoothstep(start - blur,start+blur,t);
+        return step1;
+    }
+
+Si on procéde ainsi on obtient un rectangle:
+
+    float Band(float t, float start, float end, float blur){
+        float step1= smoothstep(start - blur,start+blur,t);
+        float step2 = smoothstep(end-blur, end+blur,t);
+        return step1*step2;
+    }
+
+On crée ensuite une fonction Rectangle:
+
+    float Rectangle(vec2 uv, float left, float right, float bottom,float top, float blur) 
+    {
+        float band1 = Band(uv.x, left,right,blur);
+        float band2 = Band(uv.y, bottom,top,blur);
+        return band1*band2;
+    }
+
+Et on appelle Rectangle:
+
+        mask = Rectangle(uv, -.2,.2,-.3,.3,.01);
+   	    col = vec3(1.,1.,1.)*mask;
+
+## Distorsion
+
+Pour plus de convénience, on peut faire:
+
+    float x = uv.x;
+    float y = uv.y;
+
+A partir de la on peut modifier les paramètres.
+
+Par exemple:
+
+        
+   	float x = uv.x;
+    float m = (x -.5)*(x+.5);
+    m = m*m*4.;
+    float y = uv.y+m;
+
+
+Ou plus simplement:
+
+    float x = uv.x;
+    float m = 0.3*sin(x*15.0);   
+    float y = uv.y+m;
+
+**On peut utiliser la variable float t= iTime pour utiliser le temps.**
+
+## Création d'une fonction remap pour le blur
+
+Equivalent d'une fonction map java:
+(on veut remapper le paramètre t entre a et b)
+
+    float remap01(float a, float b, float t){
+    return(t-a) / (b-a);   
+    }
+
+puis on doit faire:
+
+    float remap(float a,float b, float c, float d, float t){
+    return remap01(a,b,t)* (d-c) +c;
+    }
+
+
+Pour l'appliquer au flou par exemple, l'effet est cool.
+
+    float blur = remap(-.5,.5,.01,.25,x);
+    mask = Rectangle(vec2(x,y), -.4,.4,-.1,.1,blur);
+
+// J'ai pas tout compris faudra regarder...
+https://www.youtube.com/watch?v=jKuXA0trQPE
+
