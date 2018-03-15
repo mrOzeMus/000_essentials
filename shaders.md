@@ -20,6 +20,48 @@ type un peu spécial: sampler comme sampler2D.
       return a + b;
     }
 
+
+## Processing
+
+Explication différence entre vertex Shader(ou point Shader) et Fragment Shader:
+
+
+
+**A fragment shader is the same as pixel shader.
+One main difference is that a vertex shader can manipulate the attributes of vertices. which are the corner points of your polygons.
+The fragment shader on the other hand takes care of how the pixels between the vertices look. They are interpolated between the defined vertices following specific rules.
+For example: if you want your polygon to be completely red, you would define all vertices red. If you want for specific effects like a gradient between the vertices, you have to do that in the fragment shader.
+Put another way:
+The vertex shader is part of the early steps in the graphic pipeline, somewhere between model coordinate transformation and polygon clipping I think. At that point, nothing is really done yet.
+However, the fragment/pixel shader is part of the rasterization step, where the image is calculated and the pixels between the vertices are filled in or "coloured".
+Just read about the graphics pipeline here and everything will reveal itself: http://en.wikipedia.org/wiki/Graphics_pipeline**
+
+
+Note : pour Processing il semblerait qu'il faille ce code en haut pour des questions de compatibilité:
+
+        #ifdef GL_ES
+        precision mediump float;
+        precision mediump int;
+        #endif  
+
+
+Exemple d'intégration dans processing:
+
+
+        PShader myShader;
+        ...
+        void setup(){
+            myShader = loadShader("myFrag.glsl", "myVert.glsl");
+            myShader.set("param",1.0);
+        }
+        void draw(){
+            shader(myShader);
+            //penser à gérer de la lumière
+            directionalLight(...);
+        }
+
+        
+
 ## Bases
 
 Le Shader ressort une couleur sur un pixel. Cette sortie est définie sur fragColor.
