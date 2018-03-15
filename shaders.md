@@ -2,6 +2,24 @@
 
 www.shadertoy.com
 
+## Principes
+
+> La première ligne est en général la version de glsl.
+
+La version de glsl est importante par rapport à openGl.
+
+> Data types
+
+float, int sont présents.
+vec, matrix mat, ivec et boolean.
+type un peu spécial: sampler comme sampler2D.
+
+> Function declarations
+
+    float computeSum(float a, float b){
+      return a + b;
+    }
+
 ## Bases
 
 Le Shader ressort une couleur sur un pixel. Cette sortie est définie sur fragColor.
@@ -25,10 +43,10 @@ vec3 => Donne moi trois valeurs (couleur).
 vec4 => Donne moi quatre valeurs (couleur + opacité).
 
 > Faire un dégradé:
-        
+
 dégradé horizontal:
 
-    fragColor = vec4(uv.x,.0,.0,1.0); 
+    fragColor = vec4(uv.x,.0,.0,1.0);
 
 dégradé vertical:
 
@@ -38,7 +56,6 @@ dégradé vertical:
 
 Pour que la taille de la fenêtre n'influe pas sur le rendu, il est nécessaire sur la première ligne d'avoir la division par iResolution.xy.
 Ca scale la valeur uv de 0 à 1.
-
 
 > Déplacer le résultat:
 
@@ -57,7 +74,7 @@ exemple, dessiner un cercle:
         uv -= 0.5;
         float d=length(uv);
         float c=d;
-        
+
         if(d < 0.3) c=1.; else c=.0;
         fragColor = vec4(vec3(c),1.0);
     }
@@ -108,10 +125,10 @@ Pourquoi ne pas autorisé le déplacement du cercle à chaque appel...
 
 Et on peut appeler plusieurs cercles de la facon suivante:
 
-    float c=Circle(uv,vec2(.2,.2), .4, .05); 
+    float c=Circle(uv,vec2(.2,.2), .4, .05);
     c+=Circle(uv,vec2(.8,-.1), .1, .05);    
     c+=Circle(uv,vec2(-.2,.2), .1, .01);    
-    
+
 On peut également soustraire c-=Circle(...).
 
 > Affecter une couleur
@@ -144,7 +161,7 @@ Si on procéde ainsi on obtient un rectangle:
 
 On crée ensuite une fonction Rectangle:
 
-    float Rectangle(vec2 uv, float left, float right, float bottom,float top, float blur) 
+    float Rectangle(vec2 uv, float left, float right, float bottom,float top, float blur)
     {
         float band1 = Band(uv.x, left,right,blur);
         float band2 = Band(uv.y, bottom,top,blur);
@@ -154,7 +171,8 @@ On crée ensuite une fonction Rectangle:
 Et on appelle Rectangle:
 
         mask = Rectangle(uv, -.2,.2,-.3,.3,.01);
-   	    col = vec3(1.,1.,1.)*mask;
+
+   	    col = vec3(1.,1.,1.)\*mask;
 
 ## Distorsion
 
@@ -167,12 +185,10 @@ A partir de la on peut modifier les paramètres.
 
 Par exemple:
 
-        
    	float x = uv.x;
-    float m = (x -.5)*(x+.5);
-    m = m*m*4.;
+    float m = (x -.5)_(x+.5);
+    m = m_m\*4.;
     float y = uv.y+m;
-
 
 Ou plus simplement:
 
@@ -197,12 +213,10 @@ puis on doit faire:
     return remap01(a,b,t)* (d-c) +c;
     }
 
-
 Pour l'appliquer au flou par exemple, l'effet est cool.
 
     float blur = remap(-.5,.5,.01,.25,x);
     mask = Rectangle(vec2(x,y), -.4,.4,-.1,.1,blur);
 
 // J'ai pas tout compris faudra regarder...
-https://www.youtube.com/watch?v=jKuXA0trQPE
-
+<https://www.youtube.com/watch?v=jKuXA0trQPE>
