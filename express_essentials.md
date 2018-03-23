@@ -79,6 +79,65 @@ Express peut aller chercher le CSS dans un folder nommé 'public'.
     app.use(express.static('public'))
 
 
+## Setting views
+
+On peut utiliser ejs ou pug.
+
+    app.set('view engine', 'pug')
+    app.set('views', './')  => donne le répertoire a utiliser pour les views
+    ...
+    app.get('/', (req, res)=>{
+    res.render('pugfile')
+    })
+
+**Note:** Pour servir html pas besoin de view engine, par contre faire:
+
+    app.use(express.static(__dirname + '/'))
+
+
+la syntaxe pug est particulière. Voici un example:
+
+    doctype html
+    html
+       head
+          title = "Hello Pug"
+       body
+          p.greetings#people Hello World!
+
+Note: Pour rentrer du texte plus long il faut faire comme ca:
+
+    div.
+       But that gets tedious if you have a lot of text.
+       You can use "." at the end of tag to denote block of text.
+       To put tags inside this block, simply enter tag in a new line and
+       indent it accordingly.
+
+
+On peut également passer des values dans un objet comme en ejs. On l'intègre de cette facon:
+
+    html
+       head
+          title=name
+       body
+          h1=name
+          a(href = url) URL
+
+
+ou bien faire des conditionals:
+
+    html
+       head
+          title Simple template
+       body
+          if(user)
+             h1 Hi, #{user.name}
+          else
+             a(href = "/sign_up") Sign Up
+
+OK, voir la doc si besoin.
+
+Mais le language semble assez logique
+
 ## Découpage en templates ejs
 
 exemple de découpage ejs avec l'architecture suivante:
@@ -124,13 +183,22 @@ exemple de découpage ejs avec l'architecture suivante:
     </form>
     </div>
 
-    <% include footer %>  
+    <% include footer %>
 
 >footer.ejs
 
     </body>
-    </html>  
+    </html>
 
+
+## Servir fichiers statiques:
+
+Désactivé par défaut il ne faut pas l'oublier si on en a besoin.
+
+    app.use(express.static('public')) => sert un dossier 'public' a la racine
+    app.use(express.static('images'))
+
+On peut déclarer plusieurs dossiers.
 
 ## Traiter les requêtes de formulaire:
 
@@ -157,7 +225,60 @@ puis intégrer la détection de la request elle-même:
     })
 
 
+
+## Requete de formulaire
+
+C'est un peu foireux des fois, voici un example:
+
+    // for parsing application/json
+    app.use(bodyParser.json());
+
+    // for parsing application/xwww-
+    app.use(bodyParser.urlencoded({ extended: true }));
+    //form-urlencoded
+
+    app.post('/', (req,res)=>{
+    console.log(req.body)
+    res.send('index')
+    })
+
+
+Et dans le html:
+**Ne pas oublier le champ name**
+
+    <form action="/" method="POST" enctype="application/x-www-form-urlencoded">
+    <input type="text" name="text">
+    <button type="submit">submit</button>
+    </form>
+
+
 ## Créer une session utilisateus
 
 A utiliser avec express-session
 **Se renseigner ca a l'air utile **
+
+
+## Cookies
+
+Il y a des méthodes particulières pour les cookies. Se renseigner
+
+
+
+## Requete Fetch
+
+Ok tout n'est pas clair dans cette méthode, mais au besoin voici une fonction qui retourne les résultat de la requête:
+
+    let fetch = require('node-fetch')
+
+    function callUrl(url){
+      return fetch(url)
+      .then((res)=>{
+              return res.json()
+      })
+      .then(data => console.log(data)
+      )
+      .catch((err)=> console.log(err)
+      )
+    }
+
+    let arr = callUrl('https://jsonplaceholder.typicode.com/users')
