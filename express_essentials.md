@@ -282,3 +282,78 @@ Ok tout n'est pas clair dans cette méthode, mais au besoin voici une fonction q
     }
 
     let arr = callUrl('https://jsonplaceholder.typicode.com/users')
+
+
+## Express et MongoDb
+
+On pout créer une bdd avec mongo db facilement.
+il faut que mongo db soit installé sur le pc.
+
+    cd mongodb => pour aller a c:\mongodb
+    cd bin
+    mongo
+    show dbs
+
+> Créer une nouvelle base de données:
+
+    use nodekb
+    db.createCollection('articles')
+    show collections
+    db.articles.insert({title:"Article1", author:"Me", body:"This is an article"})   => Crée des nouvelles entrées dans la base
+    db.articles.find().pretty()
+
+> Installer ensuite moongose
+
+    const mongoose = require('mongoose')
+
+    mongoose.connect('mongodb://localhost/nodekb')
+    let db = mongoose.connection
+
+> Créer un nouveau dossier models et fichier articles.js
+
+Le fichier fournit le "schéma" de la bdd. Une sorte de config
+
+    let mongoose = require('mongoose')
+    let articleSchema = mongoose.Schema({
+        title: {
+            type: String,
+            required:true
+        },
+        author:{
+            type:String,
+            required: true
+        },
+        body:{
+            type:String,
+            required:true
+        }
+    })
+    let Article = module.exports = mongoose.model('Article', articleSchema)
+
+On peut alors accéder aux données dans le fichier js principal.
+
+
+    let Articles = require('./models/articles')
+    //check connection
+    db.once('open', ()=>{
+        console.log('connected to mongodb')
+    })
+    //chexck for db errors
+    db.on('error', (err)=>{
+        console.log(err)
+    })
+
+Et par exemple:
+
+    app.get('/', (req, res) => {
+        Articles.find({}, (err, articles) => {
+            if (err) {
+                console.log(err)
+            } else {
+                res.render('index', {
+                    title: 'Articles',
+                    articles: articles
+                })
+            }
+        })
+    })

@@ -1,6 +1,46 @@
 # Ajax XmlHttpRequest ...
 
 
+
+
+## Exemple requete avec Promise:
+
+
+
+    function getData(method, url){
+        return new Promise(function(res, rej){
+            let xhr = new XMLHttpRequest();
+            xhr.open(method, url)
+            xhr.onload = function(){
+                if(this.status >= 200 && this.status <300){
+                    res(xhr.response)
+                }
+                else{
+                    rej({
+                        status:this.status,
+                        statusText: xhr.statusText
+                    })
+                }
+            }
+            xhr.onerror = function(){
+                rej({
+                    status:this.status,
+                    statusText: xhr.statusText
+                })
+            }
+            xhr.send();
+        })
+    }
+
+
+    getData('GET', 'https://jsonplaceholder.typicode.com/users')
+    .then((data)=>{
+        console.log(data)})
+        .catch((err)=>console.console.error(err))
+
+
+
+
 ## Principe de fonctionnement
 
 Voici le schéma de fonctionnement:
