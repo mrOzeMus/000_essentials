@@ -429,3 +429,6 @@ Enfin on intègre dans le html:
 ## Système d'authentification
 
 Voir passportjs
+
+**Très bon tuto complet qui marche**
+https://www.youtube.com/watch?v=DGTvjcgWt00

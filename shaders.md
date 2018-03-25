@@ -1,5 +1,7 @@
 # Shaders
 
+http://editor.thebookofshaders.com/
+https://github.com/patriciogonzalezvivo/glslEditor
 www.shadertoy.com
 
 ## Principes
@@ -19,6 +21,24 @@ type un peu spécial: sampler comme sampler2D.
     float computeSum(float a, float b){
       return a + b;
     }
+
+
+
+## Glsl
+
+Les variables dans glsl a priori seraient:
+
+    #ifdef GL_ES
+    precision mediump float;
+    #endif
+
+    uniform vec2 u_resolution;
+    uniform vec2 u_mouse;
+    uniform float u_time;
+
+Qu'on peut ensuite scaler avec:
+
+    vec2 st = gl_FragCoord.xy / u_resolution;
 
 
 ## Processing
