@@ -252,6 +252,15 @@ Et dans le html:
     </form>
 
 
+**Astuce**:
+On peut restreindre des champs (non vide, uniquement numérique, etc) grace a:
+
+    req.checkBody('name', 'Name is required').notEmpty()
+
+(Champ à mettre dans le requête Post avant le render)
+Se renseigner pour plus d'options.
+
+
 ## Créer une session utilisateus
 
 A utiliser avec express-session
@@ -357,3 +366,66 @@ Et par exemple:
             }
         })
     })
+
+> Rentrer un nouvel article dans la base mongo depuis la page html via form
+
+Ne pas oublier d'installer bodyparser. et faire app.use(bodyParser.urlencoded({extended:true}))
+
+Le formulaire:
+
+        form(method='POST', action='/')
+        #form-group
+            label Title:
+            input.form-control(name='title' type='text')
+        #form-group
+            label author:
+            input.form-control(name='author' type='text')
+        #form-group
+            label Body:
+            textarea.form-control(name='body')
+        input.btn.btn-primary(type='submit',value='Submit')
+
+Et pour enregistrer dans la base:
+
+
+    app.post('/', (req,res)=>{
+        let article = new Articles()
+        article.title = req.body.title
+        article.author = req.body.author
+        article.body = req.body.body
+        article.save((err)=>{
+            if(err) {
+                console.log(err)
+                return;
+            }
+            else{
+                res.redirect('/')
+            }
+    })
+
+Ca marche car on a déja importé le modele Articles précédemment.
+
+> Installer bootstrap facilement
+
+Pour faire ca définir le répertoire static pour express avec app.use(express.static(__dirname+ 'public')).
+
+Puis on va utiliser bower. Pour pouvoir enregistrer les modules de bower dans le répertoire static, a la racine créer un fichier **.bowerrc** qui va contenir:
+
+        {
+            "directory": "public/bower_components"
+        }
+
+Ensuite dans une cmd:
+
+    bower install bootstrap
+
+Bootstrap va alors automatiquement s'installer avec les dépendances dont il a besoin (jQuery ect)
+
+Enfin on intègre dans le html:
+
+        link(rel='stylesheet' href='/bower_components/bootstrap/dist/css/bootstrap.css')
+
+
+## Système d'authentification
+
+Voir passportjs
