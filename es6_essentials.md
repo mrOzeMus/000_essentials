@@ -135,3 +135,96 @@ Tri les mots par leur longueur.
 
     vals.sort((a,b) => a.length - b.length)
     console.log(vals)
+
+
+
+# JavaScript questions
+
+
+> Différences entre let et var
+
+let est dédié au block.
+var est dédié à la fonction.
+
+> Différence entre == et ===
+
+== compare only value
+===compare value and types
+
+> Différences entre const et let
+
+Attention on peut quand même faire un push dans une array ou un objet avec push.
+
+> Différences entre null et undefined
+
+Undefined apparait après une déclaration qui n'a pas été assignée.
+typeOf(undefined)= undefined
+typeOf(null)= object
+
+> Explications arrow function
+
+La différence est au niveau du this.
+Lorsqu'on appelle une fonction dans une autre. A réviser.
+
+> Prototypes inhéritance
+
+        let car = function(model){
+            this.model = model
+        }
+
+        car.prototype.getModel = function(){
+            return this.model
+        }
+
+        let toyota = new car('toyota')
+        console.log(toyota.getModel())
+
+
+> différence entre déclaration de function et expression de fonction
+
+        console.log(funcD())  => renvoie 'function declaration' (accessible avant sa création)
+        console.log(funcE())  => renvoie 'undefined' car se comporte comme une variable (inacessible avant sa création)
+
+        function funcD(){
+            console.log('function declaration)
+        }
+
+        let funcE = function(){
+            console.log('function expression')
+        }
+
+
+> Expliquer les promesses
+
+    La promesse permet d'attendre. Déclenchement du callback lorsqu'elle est résolue.
+        let p1 = new Promise(function(resolve, reject){
+            resolve($.ajax('a.json'))
+        })
+        p1.then()
+
+
+> setTimeout
+
+    setTimeout(()=>{
+        console.log('a')
+    },0)
+
+    console.log('b')
+    console.log('c')
+
+        L'ensemble renverra :
+        'b'
+        'c'
+        'a'
+        Parceque même si le timeout est a zéro, ca devient une fonction asynchrone qui du coup doit attendre la fin globale de l'exécution du code.
+
+> Expliquer 'use strict'
+
+    'use strict' interdit l'utilisation de variables non déclarées.
+
+
+> Expliquer l'utilisation du https comment l'implémenter
+
+> Explication this en Javascript
+
+> Qu'est ce qu'une clojure en javascript
