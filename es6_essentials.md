@@ -228,3 +228,31 @@ Lorsqu'on appelle une fonction dans une autre. A réviser.
 > Explication this en Javascript
 
 > Qu'est ce qu'une clojure en javascript
+
+
+> Explications this en JS
+Si on est dans un scope global on est alors dans le scope windows
+
+  this.table = 'window table'
+
+  this.garage = {
+    table: 'garage table'
+  }
+
+  on pourrait appeler la table avec this.garage.table ou window.garage.table
+
+Scope dans ume méthode
+
+let johnsRoom = {
+  table:'johns table'
+  cleanTable(){
+    console.log('cleaning ${this.table}')
+  }
+}
+
+this dans une méthode:
+
+const cleanTable = function(){
+  console.log('cleaning ${this.table}')
+}
+cleanTable.call(this) //pour utiliser un scope global . J'ai pas bien compris à revoir.
