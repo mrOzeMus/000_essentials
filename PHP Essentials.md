@@ -125,3 +125,45 @@ Appeler la form dans la même page:
 Include un fichier:
 
     <?php include('form_process.php'); ?>
+
+
+## 15 minutes crash course
+
+    $myvar = 'this is my variable';
+
+    <?php 
+
+    $loggedIn = false;
+
+    if($loggedIn == true){
+        echo 'You are logged in;
+    }else {
+        echo 'You are not logged in';
+    }
+
+Soummettre un form
+
+    <form action='process.php'>
+    <input name='name' type='text'>
+    <input name='submit' type='submit'>
+    </form>
+
+    ...process.php
+
+    <?php
+
+    $name = $_POST['name'];
+    echo 'hello' . $name;
+
+Definir une array:
+
+    $people = array('alice', 'bob', 'catherine');
+    echo $people;
+
+    //loop dans une array
+
+    foreach ($people as $person){
+        echo $person . ' ';
+    }
+
+    
