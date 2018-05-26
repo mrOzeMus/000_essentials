@@ -25,6 +25,13 @@ Relancer apache
 
 On devrait alors pouvoir acceder au projet avec l'adresse todolist.me
 
+
+Note: 
+Voir toutes les routes disponibles:
+
+	php artisan route:list
+
+
 ## Projet
 
 Creer Controller: 
@@ -109,3 +116,16 @@ Pour creer ensuite un formulaire:
 	{!! Form::open(['action' => 'TodosController@store', 'method' => 'POST']) !!}
 
   	{!! Form::close() !!}
+	
+	
+## Authentification
+
+D'abord avoir un projet et avoir un base de donnees de creer.
+Ensuite lancer une migration avec php artisan migrate (pour creer les tables user)
+
+Ensuite pour l'authentifiaction, lancer:
+
+	php artisan make:auth
+	
+Dans app/http/controller/homeController , le 'dashboard' est la classe HomeController.
+On peut alors se logger a l'adresse /login et se register a /register.
