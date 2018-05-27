@@ -129,3 +129,13 @@ Ensuite pour l'authentifiaction, lancer:
 	
 Dans app/http/controller/homeController , le 'dashboard' est la classe HomeController.
 On peut alors se logger a l'adresse /login et se register a /register.
+
+
+## Upload d'images
+
+Voir le projet de la formation appele photoshow car il y a des subtilites.
+L'image n'est pas stocke dans la base de donnees mais dans un dossier public mais pour pouvoir les utiliser, il faut
+creer un lien symlink. 
+Egalement il faut modifier le nom des images qu'on upload pour une meilleure gestion.
+
+php artisan storage:link
