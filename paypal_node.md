@@ -1,6 +1,10 @@
 # Paypal Rest api pour Node
 
 
+Node pour un truc en php ressemblant a laravel voir:
+https://www.youtube.com/watch?v=3aef3fs2CpQ
+Tout a fait ce que je cherchais
+
 ## prerequis
 
 On va utiliser paypal-rest-sdk la documentation n'est pas tres bien faite revoir si besoin le tuto de traversymedia si besoin.

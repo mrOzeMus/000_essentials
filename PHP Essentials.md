@@ -166,4 +166,60 @@ Definir une array:
         echo $person . ' ';
     }
 
+
+# COMPOSER
+
+initialision:
+
+	composer init
+
+creer projet:
+
+	composer create-project laravel/laravel
+
+installer paquet:
+
+	composer require illuminate/support //par exemple
+	composer require --dev illuminate/container //equivalent -dev
+	
+	//Enlever paquet
+	composer remove paquet-name
+	
+Lancer server php
+
+	php -S localhost:2006
+	
+	Important dans le fichier php pour pouvoir uiliser les paquets mettre au debut du fichier php
+	require('vendor/autoload.php');
+	
+	
+	
+Illuminate:
+
+obtenir la valeur d'un champ d'une array est plus facile avec array_get
+ex:
+	
+	$myArray = array(
+	  'first_name' => 'Jenny',
+	  'last_name' => 'jackson'
+	);
+
+	$firstName = $myArray['first_name']; //ancienne methode
+	echo '<br>';
+	echo $firstName;
+	echo '<br>';
+
+	$lastName = array_get($myArray, 'last_name'); //grace a illuminate
+	echo $lastName;
+
+Marche aussi a plusieurs sous niveaux:
+
+	$myArray = array(
+		'person' => array(
+			'first_name' => 'Jenny'
+		)
+	);
+	
+	$firstName = array_get($myArray, 'person.first_name');
+
     
