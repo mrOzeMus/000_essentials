@@ -1,6 +1,38 @@
 # Laravel essentials
 
 
+## Note: Integration avec react
+
+Procedure:
+
+	laravel new myProject
+	
+	//faire les configs dans fichier host et apache/config/vhost
+	
+	//rentrer les donnees de la base dans la .env
+	
+-> Integration react:
+
+	php artisan preset react
+	//verifier qu'on utilise reacte dans le fichier webpack.mix
+	ajouter aussi au mix pour le live reload:
+	
+	mix.browserSync('my-domain.dev');
+	
+	npm install
+	
+	//dans le vue dans laquelle on veut rendre le composant, prenons welcome.blade.php
+	
+	si on garde le composant example d'origine, rajouter:
+	
+	<div id="example"></div>
+	
+	et le script pour integrer react dans le layout:
+	
+	<script src="{{mix('js/app.js')}}" ></script>
+	
+	lancer le serveur npm run watch
+
 ## Creation projet:
 
 	composer create-project laravel/laravel todolist
