@@ -32,6 +32,52 @@ Procedure:
 	<script src="{{mix('js/app.js')}}" ></script>
 	
 	lancer le serveur npm run watch
+	
+
+-> Supplementaire pour creer des tables
+
+	Faire user facilement 
+	php artisan make:auth
+	php artisan migrate
+	
+Faire nouvelle table (exemple ma boite a rythme):
+
+	php artisan make:controller RythmController --resource
+	php artisan make:model Rythms -m
+	
+	dans database migrations rentrer les champs qu'on veut sous la function up
+	
+	     Schema::create('rythms', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('user_id');
+            $table->string('name');
+            $table->string('sample1');
+            $table->string('sample2');
+            $table->string('sample3');
+            $table->string('sample4');
+            $table->string('pattern');
+            $table->integer('bpm');
+            $table->timestamps();
+        });
+	
+	Lier une route a un controller:
+	
+	Route::get('/home', 'HomeController@index');
+	//dans homeController par exemple:
+	return view('home')->with('name1', 'test Morgan');
+	
+Passer des infos entre laravel Controller et react:
+
+	C'est en fait assez simple:
+	creer des data set dans la view blade contenant l'element react
+	<div id="public" data-rythms="{{ $all }}" data-test="{{ $test }}"></div>
+	
+	Dans le component react passer en props: 
+	if (document.getElementById('public')) {
+  	const element = document.getElementById('public')
+  	const props =  Object.assign({}, element.dataset)
+  	ReactDOM.render(<Public {...props}/>, element);
+  	}
 
 ## Creation projet:
 
