@@ -2,6 +2,8 @@
 
 ## Principales Fonctions:
 
+	ofSetWindowShape
+	ofSetWindowPosition
 	ofDrawLine
 	ofDrawCircle
 	ofDrawRectangle
@@ -12,6 +14,8 @@
 	ofEndShape
 	ofGetWidth
 	ofGetHeight
+	
+	ofBackground
 	
 	ofGetMouseX
 	ofGetMouseY
