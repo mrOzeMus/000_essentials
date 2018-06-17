@@ -1,5 +1,8 @@
 # Web Gl and shaders
 
+(tuto utile:
+https://www.youtube.com/watch?v=_ZQOUQsw_YI
+)
 
 # Basic setup pour Browser:
 
@@ -66,3 +69,37 @@
         gl.enableVertexAttribArray(positionLocation);
 
         gl.drawArrays(gl.TRIANGLES, 0, 6);
+
+
+# Kode Life Basic setup
+
+Vertex:
+
+
+        uniform vec2 resolution;
+        attribute vec4 a_position;
+        varying vec2 uv;
+
+        void main(void)
+        {
+            uv = a_position.xy;
+            uv *= resolution.x /resolution.y;
+            gl_Position = vec4(uv, 0.0,1.0);
+
+        }
+
+Frag:
+
+        #ifdef GL_ES
+        precision highp float;
+        #endif
+
+        uniform float time;
+        uniform vec2 resolution;
+
+        varying vec2 uv;
+
+        void main(void)
+        {
+            gl_FragColor = vec4(uv ,.0,1.0);
+        }
