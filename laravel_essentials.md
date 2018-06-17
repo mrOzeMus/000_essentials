@@ -68,16 +68,16 @@ Faire nouvelle table (exemple ma boite a rythme):
 	
 Passer des infos entre laravel Controller et react:
 
-	C'est en fait assez simple:
-	creer des data set dans la view blade contenant l'element react
-	<div id="public" data-rythms="{{ $all }}" data-test="{{ $test }}"></div>
-	
-	Dans le component react passer en props: 
-	if (document.getElementById('public')) {
-  	const element = document.getElementById('public')
-  	const props =  Object.assign({}, element.dataset)
-  	ReactDOM.render(<Public {...props}/>, element);
-  	}
+		C'est en fait assez simple:
+		creer des data set dans la view blade contenant l'element react
+		<div id="public" data-rythms="{{ $all }}" data-test="{{ $test }}"></div>
+
+		Dans le component react passer en props: 
+		if (document.getElementById('public')) {
+		const element = document.getElementById('public')
+		const props =  Object.assign({}, element.dataset)
+		ReactDOM.render(<Public {...props}/>, element);
+		}
 
 ## Creation projet:
 
