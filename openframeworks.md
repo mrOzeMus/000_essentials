@@ -1,5 +1,23 @@
 # Open Frameworks
 
+## C++ principes generaux
+
+	Pointers servent a economiser de la memoire. 
+	Exemple de fonction qui passe par reference la valeur a changer
+
+			void passByReference(int *x){
+					*x = 55;	
+			}
+
+	Connaitre la taille d'un element en nombre de bits:
+
+			int num = 3;
+			cout >> sizeof(num) >> endl; 
+			//donne une reponse en bits
+
+
+
+
 ## Principales Fonctions:
 
 	ofSetWindowShape
@@ -106,3 +124,4 @@ Creaton d'une classe
 			void draw();
 			ofImage image;
 		};
+
