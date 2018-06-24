@@ -16,6 +16,28 @@
 			//donne une reponse en bits
 
 
+		Constructeurs, deconstructeurs:
+
+			Sally::Sally(){
+				cout << "i am the constructor " << endl;
+			}
+
+			Sally:~Sally(){
+				cout << "i am the decounstructor << endl;
+			}
+		
+		Ne pas oublier de declarer les constructeurs et deconstructeurs: 
+			
+			class Sally
+			{
+				public:
+						Sally();
+						~Sally();
+						void printCrap();
+
+					protected:
+					private:
+			};
 
 
 ## Principales Fonctions:
