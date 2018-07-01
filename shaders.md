@@ -22,7 +22,59 @@ type un peu spécial: sampler comme sampler2D.
       return a + b;
     }
 
+## Pratique: utilisation avec Atom Live Coding:
 
+Activer le shader avec Maj + Shift + P : Veda, toggle.
+Actualiser avec Ctrl + Enter.
+creation fichier myshader.frag:
+
+        precision mediump float;
+        uniform float time;
+        uniform vec2 mouse;
+        uniform vec2 resolution;
+
+        void main(void){
+        vec2 position = (gl_FragCoord.xy / resolution.xy) + mouse / 4.0;
+
+        float color = 0.0;
+        color += sin(position.x * cos(time / 15.0) * 80.0) + cos(position.y * cos(time / 15.0) * 10.0);
+        color += sin(position.y * sin( time / 10.0) * 40.0) + cos(position.x * sin(time / 25.0) * 40.0);
+        color += sin(position.x * sin( time / 5.0) * 10.0) + sin(position.y * sin(time / 35.0) * 80.0);
+        color *= sin(time / 10.0) * 0.5;
+        gl_FragColor = vec4(vec3(color, color * 0.5, sin(color + time / 3.0) * 0.75), 1.0);
+        }
+
+On peut importer des images ou de l'audio au debut du fichier en mettant un JSON en commentaire:
+
+    /*
+    {
+    "audio": true, // Enable audio input
+    "camera": true, // Enable WebCam input
+
+    IMPORTED: { // "" is not necessary
+    image1: {
+    "PATH": "https://s1.qwant.com/thumbr/0x0/9/9/914a33d1daf30adfe4b21dae4484865d2412c45ded66f5468579b485ec0751/Borowitz-Donald-Trump-1200.jpg?u=http%3A%2F%2Fwww.newyorker.com%2Fwp-content%2Fuploads%2F2016%2F01%2FBorowitz-Donald-Trump-1200.jpg&q=0&b=1&p=0&a=1",
+    },
+    }, // trailing-comma is OK
+    }
+    */
+
+Exemple en utilisant la webcam et en envoyant le resultat sur server:
+
+        /*{ "camera": true }*/
+        precision mediump float;
+        uniform float time;
+        uniform vec2 resolution;
+        uniform sampler2D camera;
+
+        void main() {
+            vec2 uv = gl_FragCoord.xy / resolution;
+            vec2 p = (gl_FragCoord.xy * 2. - resolution) / min(resolution.x, resolution.y);
+            uv.x = 1. - uv.x;
+            float a = atan(p.y, p.x) * 2.;
+            float s = mod(a + time * .07, .13) + mod(a - time * .08, .17);
+            gl_FragColor = texture2D(camera, uv + s * .1) * vec4(.2, .4, .8, 1.);
+        }
 
 ## Glsl
 
@@ -40,12 +92,9 @@ Qu'on peut ensuite scaler avec:
 
     vec2 st = gl_FragCoord.xy / u_resolution;
 
-
 ## Processing
 
 Explication différence entre vertex Shader(ou point Shader) et Fragment Shader:
-
-
 
 **A fragment shader is the same as pixel shader.
 One main difference is that a vertex shader can manipulate the attributes of vertices. which are the corner points of your polygons.
@@ -56,7 +105,6 @@ The vertex shader is part of the early steps in the graphic pipeline, somewhere 
 However, the fragment/pixel shader is part of the rasterization step, where the image is calculated and the pixels between the vertices are filled in or "coloured".
 Just read about the graphics pipeline here and everything will reveal itself: http://en.wikipedia.org/wiki/Graphics_pipeline**
 
-
 Note : pour Processing il semblerait qu'il faille ce code en haut pour des questions de compatibilité:
 
         #ifdef GL_ES
@@ -64,9 +112,7 @@ Note : pour Processing il semblerait qu'il faille ce code en haut pour des quest
         precision mediump int;
         #endif  
 
-
 Exemple d'intégration dans processing:
-
 
         PShader myShader;
         ...
@@ -79,8 +125,6 @@ Exemple d'intégration dans processing:
             //penser à gérer de la lumière
             directionalLight(...);
         }
-
-        
 
 ## Bases
 
@@ -188,8 +232,8 @@ Pourquoi ne pas autorisé le déplacement du cercle à chaque appel...
 Et on peut appeler plusieurs cercles de la facon suivante:
 
     float c=Circle(uv,vec2(.2,.2), .4, .05);
-    c+=Circle(uv,vec2(.8,-.1), .1, .05);    
-    c+=Circle(uv,vec2(-.2,.2), .1, .01);    
+    c+=Circle(uv,vec2(.8,-.1), .1, .05);
+    c+=Circle(uv,vec2(-.2,.2), .1, .01);
 
 On peut également soustraire c-=Circle(...).
 
@@ -234,7 +278,7 @@ Et on appelle Rectangle:
 
         mask = Rectangle(uv, -.2,.2,-.3,.3,.01);
 
-   	    col = vec3(1.,1.,1.)\*mask;
+col = vec3(1.,1.,1.)\*mask;
 
 ## Distorsion
 
@@ -247,15 +291,15 @@ A partir de la on peut modifier les paramètres.
 
 Par exemple:
 
-   	float x = uv.x;
-    float m = (x -.5)_(x+.5);
-    m = m_m\*4.;
-    float y = uv.y+m;
+float x = uv.x;
+float m = (x -.5)\_(x+.5);
+m = m_m\*4.;
+float y = uv.y+m;
 
 Ou plus simplement:
 
     float x = uv.x;
-    float m = 0.3*sin(x*15.0);   
+    float m = 0.3*sin(x*15.0);
     float y = uv.y+m;
 
 **On peut utiliser la variable float t= iTime pour utiliser le temps.**
@@ -266,7 +310,7 @@ Equivalent d'une fonction map java:
 (on veut remapper le paramètre t entre a et b)
 
     float remap01(float a, float b, float t){
-    return(t-a) / (b-a);   
+    return(t-a) / (b-a);
     }
 
 puis on doit faire:
