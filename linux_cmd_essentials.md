@@ -26,18 +26,18 @@ apt-cache search bluefish\* : chercher dans un répertoire
 # File System
 
       root /
-            = bin
-            = opt
-            = boot
+            = bin             // binaries system
+            = opt             // stockage des programmes (chrome, firefox, etc ) optionnal software
+            = boot            // system boot necessary files
             = root
-            = dev
-            = sbin
-            = etc
+            = dev             // devices (keyboard, mouse, etc)
+            = sbin            // binaries
+            = etc             // configuration files for the system !! important folder
             = srv
-            = home
-            = tmp
-            = lib
-            = usr *
-            = media
-            = var *
+            = home            // user files by default
+            = tmp             // temporary files
+            = lib             // libraries (equivalent des dll de windows)
+            = usr *           // universal system ressources (icones, ... )
+            = media           // Une cle usb va automatiquement etre montee sur ce dossier
+            = var *           // caches, backups
             = mnt
