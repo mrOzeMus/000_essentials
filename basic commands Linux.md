@@ -4,6 +4,14 @@
 
 ## Commands
 
+voir variables PATH environnement:
+echo $PATH
+ajouter variable temporairement:
+PATH=$PATH:/home/morgan/foldertoadd
+prepend:
+PATH=/root/directorytoadd:$PATH
+ajouter de maniere definitive a PATH : modifier fichier ~/.bashrc voir example a la fin du fichier ou voir tuto sur internet
+
 pwd: Affiche répertoire en cours.
 cd: change directory.
 cd /sbin : absolute path
@@ -196,3 +204,31 @@ chercher
       sudo apt-get install reaver
 
       Aujourd'hui il n'y a pratiquement plus de WEP car trop facile a cracker
+
+      installer egalement crunch (telecharger l'archive et faire make et make install)
+      crunch cree des listes de mots de passe a tester selon les parametres qu'on lui passe.
+
+      example : crunch 3 9 abcdefghijklmnopqrstuvwxyz
+            //va creer touts les mots de passe avec letters en 3 et 9 lettres
+
+#### Craker un wifi
+
+      deconnection reseau puis reconnection en mode monitor:
+
+            ifconfig
+            sudo ifconfig wlp4s0 down
+            sudo iwconfig wlp4s0 mode monitor
+            sudo ifconfig slp4s0 up
+
+            airmon-ng check wlp4s0
+                  // ici il faut tuer les process en trop qui vont nous gener pendant nos manips
+            kill (numero correspondant au network manager)
+                  // tuer ensuite dhclient
+                  // le reste  il ne doit plus rien y avoir
+                  // la commande sudo systemctl disable avahi-daemon peut aider
+
+            On va scanner les environs pour voir tous les ponits de connection disponible
+
+            sudo airodump-ng wlp4s0
+
+(reprendre a 6h10 ici probleme je ne vois rien en scann voir si y'a un soucis)
