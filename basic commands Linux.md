@@ -33,6 +33,11 @@ apt-cache search bluefish\* : chercher dans un répertoire
 
 chercher
 
+## Programmes
+
+      fsearch : recherche de fichiers.
+      tesseract : logiciel ocr
+
 ## Workshop
 
 # File System
