@@ -326,3 +326,11 @@ Pour l'appliquer au flou par exemple, l'effet est cool.
 
 // J'ai pas tout compris faudra regarder...
 <https://www.youtube.com/watch?v=jKuXA0trQPE>
+
+## Creation de bruit random.
+
+Une facon simple est d'implementer une fonction similaire:
+
+    float random(vec2 uv){
+    return fract(sin(dot(uv, vec2(12.432,123.34)))* 483990.);
+    }

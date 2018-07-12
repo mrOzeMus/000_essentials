@@ -2,7 +2,6 @@
 
 
 
-
 ## Exemple requete avec Promise:
 
 
