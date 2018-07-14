@@ -280,6 +280,29 @@ Et on appelle Rectangle:
 
 col = vec3(1.,1.,1.)\*mask;
 
+## Creer une fonction
+
+Pour creer une fonction mathematique simplement :
+
+    float plot(vec2 position, float pct){
+        return smoothstep(pct - 0.02, pct, position.y)
+            - smoothstep(pct, pct + 0.02 , position.y);
+    }
+    ...
+    float line = plot(uv, 2. * uv.x);   // c'est ici qu on determine la fonction.
+    vec3 color;
+    color = vec3(line);
+
+    gl_FragColor = vec4(color, 1.0);
+
+Une autre facon encore plus agreable (en gardant la meme definition de la fonction plot ci dessus):
+
+    float y(float x){
+        return .5 + .5 * sin(30. * x);
+    }
+    ...
+    float line = plot(uv, y(uv.x));
+
 ## Distorsion
 
 Pour plus de convénience, on peut faire:
