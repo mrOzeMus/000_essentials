@@ -357,3 +357,10 @@ Une facon simple est d'implementer une fonction similaire:
     float random(vec2 uv){
     return fract(sin(dot(uv, vec2(12.432,123.34)))* 483990.);
     }
+
+## Creer une palette de couleurs
+
+    vec3 palette(in float t, in vec3  a, in vec3 b , in vec3 c , in vec3 d ){
+        return a + b * cos( 6.345345*(c*t+d));
+    }
+    // credit a www.iquilezles.org/www/articles/palettes/palettes.htm
