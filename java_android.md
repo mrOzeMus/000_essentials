@@ -124,3 +124,55 @@ Lancer une activity en dehors de notre app (exemple ici aller sur google):
                 }
             }
         });
+
+# Infos Supplementaires
+
+> Graddle est le programme qui construit le binaire a partir des fichiers android.
+> Pour voir le text du Xml et mieux comprendre l'architecture, cliquer sur text en bas sur ActivityMain.xml
+
+Il faut mieux eviter d'ecrire en dur les champs de texte, il faut mieux les extraire et les mettre en dur dans le fichier string.xml.
+Pour cela cliquer sur les 3 points apres le champ desire, et ajouter une ressource. C'est une sorte de lien qui permettra par exemple de faire beaucoup plus facilement des traductions par exemple.
+Les champs seront enregistres dans le fichier string.xml
+
+Quoi qu'il arrive quand on met des inputs on recuperera une String , meme si on met un champ uniquement Number.
+
+Faire un log:
+
+    public void onClick(View v){
+        Log.i("myTag", msg: "this is the message");
+    }
+
+Ca va logger dans la console (logcat) le message. On peut filtrer pour avoir que "info" qui permet de voir que les logs faits avec cette methode.
+
+    Mettre Focus sur un champ par default:
+    txtNumber.requestFocus();
+
+Les couleurs (equivalent du css) est stocke dans res > values > styles.xml
+
+Example: creer un nouveau boutton:
+
+           <style name="GreenButton" parent="@android:style/Widget.Button">
+                 <item name="android:textColor">#00FF00</item>
+          </style>
+
+On peut aussi definir une couleur en bas:
+
+        <color name="green">#00FF00</color>
+
+    Et l'utiliser:
+
+        <item name="android:textColor">@color/green</item>
+
+Donc example:
+
+    <style name="GreenButton" parent="@android:style/Widget.Button">
+        <item name="android:textColor">@color/green</item>
+        <item name="android:textSize">15dp</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:typeface">serif</item>
+    </style>
+
+On peut alors appliquer le style a un element par exemple (deconseiller).
+Ou bien mettre dans le AppTheme la ligne:
+
+    <item name="android:buttonStyle>@style/GreenButton</item>
