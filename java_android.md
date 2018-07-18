@@ -176,3 +176,64 @@ On peut alors appliquer le style a un element par exemple (deconseiller).
 Ou bien mettre dans le AppTheme la ligne:
 
     <item name="android:buttonStyle>@style/GreenButton</item>
+
+## Integration d'images
+
+Les images sont a mettre dans res > drawable.
+
+## Ajouter Menu
+
+Click droit sur res > new > ressource d'activite. Donner un nom et choisir menu dans le menu deroulant.
+
+Creation du menu dans main_menu.xml par exemple:
+
+        <?xml version="1.0" encoding="utf-8"?>
+        <menu xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto">
+
+            <item android:id="@+id/menu_other"
+                android:orderInCategory="100"
+                app:showAsAction="never"
+                android:title="Other item" />
+
+            <item android:id="@+id/menu_settings"
+                android:orderInCategory="100"
+                app:showAsAction="never"
+                android:title="settings" />
+        </menu>
+
+Et dans mainActivity.java :
+
+public class MainActivity extends AppCompatActivity {
+
+            @Override
+            protected void onCreate(Bundle savedInstanceState) {
+                super.onCreate(savedInstanceState);
+                setContentView(R.layout.activity_main);
+            }
+
+            @Override
+            public boolean onCreateOptionsMenu(Menu menu) {
+                getMenuInflater().inflate(R.menu.main_menu, menu);
+                return super.onCreateOptionsMenu(menu);
+            }
+
+            @Override
+            public boolean onOptionsItemSelected(MenuItem item) {
+                switch( item.getItemId()){
+                    case R.id.menu_other:
+                        Toast.makeText(this, "other menu selected", Toast.LENGTH_LONG).show();
+                        return true;
+                    case R.id.menu_settings:
+                        Toast.makeText(this, "Settings menu selected", Toast.LENGTH_LONG).show();
+                        return true;
+                    default:
+                        return super.onOptionsItemSelected(item);
+                }
+            }
+        }
+
+# Ajouter librairies exterieur au projet
+
+Pour cela, il faut faire file > Project Structure > Dependencies > Add et chercher la librairie voulue.
+Exemple avec geolocalisation chercher com.google.gson etc...
