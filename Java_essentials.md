@@ -10,10 +10,8 @@
         }
     }
 
-
-* Inheritance: super() permet de fournir a une class à l'intérieur d'une autre toutes les propriétés.
-* Imprimer sur l'écran : System.out.println
-
+- Inheritance: super() permet de fournir a une class à l'intérieur d'une autre toutes les propriétés.
+- Imprimer sur l'écran : System.out.println
 
 ## Netbeans
 
@@ -50,10 +48,9 @@ Fonction principale dans void main.
         java -jar "D:\codeJava\Caulculator\dist\Caulculator.jar"
     Cette commande permet de lancer le programme depuis une cli. (ok pas mal)
 
-    Pour faire un exec il faut wrapper l'executable dans un truc appele JSmooth 
+    Pour faire un exec il faut wrapper l'executable dans un truc appele JSmooth
     Voir cette video pour faire l' exe a partir du jar.
     https://www.youtube.com/watch?v=hiaz3sHoNb4
-
 
 ### Application PDFBox
 
@@ -78,6 +75,64 @@ Fonction principale dans void main.
     }
 
 
-    Charger Document : 
+    Charger Document :
     File file1 = new File("D:/1.pdf");
     PDDocument document = PDDocument.load(file1);
+
+### Bases de Java
+
+-> Declaration d'une methode
+
+    public static void main(String[] args)
+
+-> Declaration de lignes :
+
+    public static void main(String[] args){
+        System.out.print("Goodbye, ");
+        System.out.pringln("cruel wordl");
+    }
+
+On peut aussi utilise \n et faire:
+
+    System.out.print("Hello \nHow are You doing?\n");
+
+** Principales escape sequences **
+
+    \n : newline
+    \t : tab
+    \" : double quote
+    \\ : backslash
+
+Type de valeurs:
+
+    int
+    double
+    string
+
+Si une valeur ne changera pas (reference universelle, genre un taux de conversion cm / inches , ...)
+final double CM_PER_INCH = 2.54;
+
+Pour formatter des valeurs a l'affichage, on peut utiliser printf, de cette faceon:
+
+    int inch = 100;
+    double cm = inch * CM_PER_INCH;
+    System.out.printf("%d in = %f cm \n", inch, cm);
+    // donnera en sortie 100 in = 254.000000 cm
+
+Liste des formats scpecifiques:
+
+    %d = decimal integer = 12345
+    $08d = padded with zeros, at least 8 digits wide = 00012345
+    %f = floating-point = 6.7890000
+    %.2f = arrondis a 2 decimales = 6.79
+
+Conversion sur le champ de types :
+
+    double pi = 3.14159;
+    int x = (int) pi;
+
+### Mave
+
+Integre automatiquement dans eclipse.
+
+Clique droit sur src/main/java > New Class
