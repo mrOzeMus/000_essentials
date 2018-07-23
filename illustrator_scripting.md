@@ -244,3 +244,57 @@ Pour integrer par exemple un json pour utiliser certaines donnees (exemple json)
 
     var destinationLayer = doc2.layers.add();
     doc1.pageItems[0].duplicate(destinationLayer, ElementPlacement.PLACEATBEGINNING);
+
+### Creation d'une nuance
+
+    Les nuances dans illustrator sont en fait des spots, ou des swatchs, j'ai pas bien compris encore.
+
+     var replaceColor = docRef.spots.add();
+     replaceColorColor = new CMYKColor();
+     replaceColorColor.cyan = 20;
+     replaceColorColor.magenta = 12;
+     replaceColorColor.yellow = 45;
+     replaceColorColor.black = 20;
+     replaceColor.name = "Test" + (i+1);
+     replaceColor.color = replaceColorColor;
+     replaceColor.colorType = ColorModel.SPOT;
+     replaceColor.tint = 100;  
+
+    // Selections
+    var docRef = app.activeDocument;
+    var paths = docRef.pathItems;
+
+    var ncolor = doc.swatches[i].color;
+    if(doc.pathItems[i].fillcolor =true){
+      doc.pahtItems[i].fillColor =ncolor;
+    }
+
+    Obtenir toutes les nuances:
+    docRef.swatches.length
+
+    Changer opacity:
+    var paths = docRef.pathItems;
+    paths[0].opacity = 50;
+
+    Toggle stroke, fill:
+    paths[1].filled =true;
+    paths[1].stroked = false;
+
+    Changer un path avec une nuance:
+    var mycol = docRef.swatches.getByName("myBlue").color;
+    paths[0].fillColor = mycol;
+
+### Modifier taille de la zone de travail:
+
+    var mm = 2.834645;
+
+    var doc = app.activeDocument;
+
+    var myVisibleBounds = doc.visibleBounds; //Rect, which is an array;
+
+    myVisibleBounds[0] -= 20*mm; //left coordinate (use negative values to add artboard)  
+    myVisibleBounds[1] += 80*mm; //ltop coordinate  
+    myVisibleBounds[2] += 20*mm; //right coordinate  
+    myVisibleBounds[3] -= 20*mm; //bottom coordinate (use negative values to add artboard)
+
+    doc.artboards[0].artboardRect = myVisibleBounds;
