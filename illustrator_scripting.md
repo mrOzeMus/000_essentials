@@ -1,5 +1,7 @@
 # Illustrator scripting
 
+//forum https://forums.adobe.com/community/illustrator/illustrator_scripting
+
 Le scripting se fait sous un IDE automatiquement installe qui s'appelle ExtendScript Toolkit.
 
 ** Synthese du projet **
@@ -298,3 +300,89 @@ Pour integrer par exemple un json pour utiliser certaines donnees (exemple json)
     myVisibleBounds[3] -= 20*mm; //bottom coordinate (use negative values to add artboard)
 
     doc.artboards[0].artboardRect = myVisibleBounds;
+
+### Group duplicate
+
+    group.duplicate(group.parent, ElementPlacement.PLACEATEND);
+
+    //dupliquer un element:
+    var nl = docRef.layers.add();
+    ol.pageItems[i].duplicate(nl, ElementPlacement.PLACEATBEGINNING);
+
+### Changer de layer
+
+    var doc = app.activeDocument;
+    var mast = doc.layers.add();
+    mast.name = 'Master layer';
+    for(var i = doc.layers.length-1; i >= 1; i--){
+      doc.layers[i].move(mast, ElementPlacement.PLACEATBEGINNING);
+    }
+
+### Deplacer une selection
+
+    var mySelection = app.selection;
+    for(var i =0; i < mySelection.length; i++){
+      mySelection[i].top += 200;
+    }
+
+### Execution de commandes logicielles
+
+    app.executeMenuCommand("selectall");  
+    app.executeMenuCommand("ungroup");  
+    app.executeMenuCommand("outline");  
+    app.executeMenuCommand("deselectall");  
+
+
+    //iterer dans les items
+    var nl = docRef.layers.add();
+    for (var i =0 ; i< nl.pathItems.length ; i++){
+      with(nl.pahtItems[i]){
+        fillColor = flatBlack;
+      }
+      if(stroked == true){
+        stroked = false;
+      }
+    }
+
+### Placement Type
+
+    ElementPlacement.PLACEAFTER
+    ElementPlacement.INSIDE
+    ElementPlacement.PLACEATBEGINNING
+
+### Deplacer un groupe
+
+    var myLayer = mydoc.layers[0];
+    myLayer.groupItems[0].left = 200;
+
+    //on peut renommer le groupe pour mieux comprendre
+    myLayer.groupItems[0].name = "group1";
+    // ou translate
+     myLayer.groupItems[0].translate(200,0);
+
+### Astuces
+
+    app.redraw();
+    $.sleep(1000);
+    deselection: app.selection = []
+
+### Selection identique fill color
+
+    var myDoc = app.activeDocument;
+    var rgbCol = new RGBColor();
+    rgbCol.red =29;
+    rgbCol.green =29;
+    rgbCol.blue =29;
+    myDoc.defaultFillColor = rgbCol;
+    app.executeMenuCommand("Find Fill Color menu item");
+
+### Changer couleur d'un element
+
+    // attention si dans un groupe j'imagine qu'il faut d'abord selectionner le groupe
+    mydoc.pathItems[0].fillColor = d.swatches[12].color;
+    mydoc.pathItems[0].strokeColor = d.swatches[2].color;
+
+### Affichage prompt
+
+    exemple:
+    var margin = Number(prompt('enter margin', '10'));
