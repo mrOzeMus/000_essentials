@@ -24,7 +24,26 @@ Terminator
       - close terminal : Ctrl + shift + w
       - quitter : Ctrl Shift + q
       - toggle : Ctrl Shift + x
+      - nouveau terminal : Ctrl + shift + T
+      - fermer onglet : ctrl + shift + w
+      - toggle between onglets : ctrl + shift + x
 
+## Ranger file manager
+
+      - aller a directory home : gh
+      - aller a cd / : gr
+      - aller au config ranger : gR
+      - display file : i
+      - open with : r
+      - rename : cw
+      - search files : /
+      - next match : n
+      - previous match : N
+      - copy file : yy
+      - create new tab : Ctrl + n
+      - close current tab : Ctrl + w
+      - next tab : tab
+      - selection : space
 
 ## Commands
 
