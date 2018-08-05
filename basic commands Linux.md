@@ -2,6 +2,49 @@
 
 (ethical haking video: 2h50re)
 
+## Gestionnaire de fichiers :
+
+Ranger est un vim-based file manager
+
+      - rename file : cw (change word)
+      - space : selection
+      - mkdir fonctionne.
+      - d > D : delete file
+
+      et plein d'autres
+
+## Terminal emulateur
+
+Terminator
+
+      - split horizontally : Ctrl Shift + O
+      - split verticall : Ctrl Shift + E
+      - move dragbar : Ctrl + Shift + arrow keys
+      - switch terminal : Ctrl + tab
+      - close terminal : Ctrl + shift + w
+      - quitter : Ctrl Shift + q
+      - toggle : Ctrl Shift + x
+      - nouveau terminal : Ctrl + shift + T
+      - fermer onglet : ctrl + shift + w
+      - toggle between onglets : ctrl + shift + x
+
+## Ranger file manager
+
+      - aller a directory home : gh
+      - aller a cd / : gr
+      - aller au config ranger : gR
+      - display file : i
+      - open with : r
+      - rename : cw
+      - search files : /
+      - next match : n
+      - previous match : N
+      - copy file : yy
+      - create new tab : Ctrl + n
+      - close current tab : Ctrl + w
+      - next tab : tab
+      - selection : space
+
 ## Commands
 
 voir variables PATH environnement:
