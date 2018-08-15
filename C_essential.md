@@ -34,6 +34,8 @@ Pour compiler, il faut rentrer en ligne de commande :
     %% : pour le signe % lui meme
     EOF : sur linux c'est Ctrl + D
 
+    int myArray[10] : initialisation d'une array.
+
 ## Types
 
     char    caractere, un seul octet
@@ -82,4 +84,17 @@ Autre exemple, programme qui compte le nombre de lignes qu'on tape:
         if( c == '\n')
           ++nl;
         printf("%d\n", nl);
+    }
+
+## Ecriture d'une fonction
+
+Exemple d'une fonction puissance d'un chiffre:
+
+    int puiss(int base, int n){
+        int i, p;
+        p=1;
+        for (i=1; i<=n ; ++i){
+            p = p * base;
+            return p;
+        }
     }
