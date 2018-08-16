@@ -67,7 +67,7 @@ Pas bien compris encore mais ici un exemple de programme qui recopie ce qu'ecrit
     #include <stdio.h>
     main(){
       int c;
-      while((c= getchar()) != EOF)
+      wh        \0 : caractere nulile((c= getchar()) != EOF)
         putchar(c);
     }
     // EOF = End of File
@@ -98,3 +98,57 @@ Exemple d'une fonction puissance d'un chiffre:
             return p;
         }
     }
+
+## Variables globales
+
+Pour utiliser une variable globale il faut la definir une fois a l'exterieur de toute fonction, et ensuite la redefinir a chaque fois qu'on veut l'utiliser dans une fonction:
+
+    #include <stdio.h>
+    #define MALIGNE 1000
+    
+    int max;
+    char ligne[MAXLIGNE];
+    char pluslongue[MAXLIGNE];
+
+    int lireligne(void);
+    void copier(void);
+
+    main(){
+        int l;
+        extern int max;
+        extern char pluslongue[];
+
+        ...
+    }
+
+
+## Caracteres d'echapement:
+
+        \a : caractere d'alerte (sonnerie bell)
+        \b : retour arriere (backspace)
+        \f : saut de page
+        \n : fin de ligne
+        \r : retour chariot
+        \t : tabulation horizontale
+        \v : tabulation verticale
+        \\ : backslash
+        \? : point d'interrogation
+        \' : appostrophe
+        \" : guillement
+        \ooo : nombre octal
+        \xhh : nombre hexadecimal
+        \0 : caractere nul
+
+## enums
+
+Si on ne precise pas , le premier nom d'une enum est 0 et l'autre 1
+
+    enum logique { NON , OUI }
+
+sauf si on precise les valeurs :
+
+    enum echaps { SONNERIE = '\a', ARRIERE = '\b', TAB = '\t' , LIGNE = '\n', ... }
+
+ou un peu comme un excel on peut incrementer automatiquement :
+
+    enum mois { JAN =1, FEV, MAR, AVR, MAI, JUN ... } // FEV vaudra 2, MAR vaudra 3, etc..
