@@ -1,6 +1,14 @@
 # Basic commands Linux
 
 (ethical haking video: 2h50re)
+Job interview Linux questions
+
+      - Voir version kernel: uname -a
+      - Voir current http: ifconfig // ou ip addr show eth0
+      - check for free disk space: df -ah
+      - manage services on a system: service udev status (udev est l'exemple)
+            ou nouvelle version : systemctl status udev
+      - check for open ports: sudo netstat -tulpn
 
 ## Gestionnaire de fichiers :
 
