@@ -43,6 +43,12 @@ Pour compiler, il faut rentrer en ligne de commande :
     long    nombre entier long
     double  nombre a virgule flottante en double precision
 
+Definition d'une array:
+
+    int numbers[7] = {3, 4, 5, 6, 7, 9, 10};
+
+On ne peut pas directement d'apres ce que je comprends rentrer l'array anonyme dans la foncton, il faut d'abord la definir et la nommer de la facon ci dessus.
+
 ## Constante symbolique
 
     #define   nom   texte de remplacement
