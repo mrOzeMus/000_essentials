@@ -65,3 +65,9 @@ th test tHis is a test
 <>input>t
 <>input>tes<>/input>
 <>input>test<>/input>
+
+
+## Neovim
+
+Fichier config dans ~/.config/nvim/init.vim
+Pour installer un PlugIn , mettre son nom dans le fichier config et faire dans nVim un :PlugInstall
