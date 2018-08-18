@@ -158,3 +158,58 @@ sauf si on precise les valeurs :
 ou un peu comme un excel on peut incrementer automatiquement :
 
     enum mois { JAN =1, FEV, MAR, AVR, MAI, JUN ... } // FEV vaudra 2, MAR vaudra 3, etc..
+
+## strings
+
+    char mystr[6] = {'H', 'e', 'l', 'l', 'o', '\0'};
+    char myothstr[] = "Hello";
+    printf("my string : %s", mystr);
+    printf("\nmy other string : %s", myothstr);
+    return 0;
+
+il existe la librarie #include <string.h> qui permet de faire simplement des operations sur les strings.
+
+## Pointeurs
+
+L'operateur unaire & donne l'adresse d'un objet, ainsi:
+
+    p = &c;
+
+affecte l'adresse de c a la variable p, et on dit que p "pointe sur" c.
+L'operateur unaire * represente l'operateur d'indirection ou de reference.
+Il donne acces a l'objet pointe par ce pointeur. Supposons que x et y soient des nombres entiers et que pi soit un pointeur sur un int, alors:
+
+    int x = 1, y = 2, z[10];
+    int *pi;  // pi est un pointeur sur un int
+    pi = &x;  //pi pointe maintenant sur x
+    y = *pi;  // y vaut desormais 1
+    *pi = 0;  // x vaut desormais 0
+    pi = &z[0];  //pi pointe desormains sur z[0]
+
+    double *pd, atof(char *);
+
+    -> indique que dans une expression, *pd et atof(s) ont des valeurs de type double et que l'argument de atof est un pointeur sur un char.
+
+## Arguments a main
+
+On peut en C passer des arguments a main a partir du lancement du programme en ligne de commande.
+
+exemple:
+
+    #include <stdio.h>
+    main(int argc, char *argv[])
+    {
+        int i;
+        for (i =1; i< argc; i++){
+            printf("%s", argv[i]);
+            printf("\n");
+            return 0
+        }
+    }
+
+// argc est le nombre total d'arguments de la fonction
+// argv est les arguments (le premier est toujours le nom du programme)
+
+Le programme est ensuite appele par:
+
+    myprogramm arg1, arg2, arg3 ...
