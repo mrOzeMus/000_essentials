@@ -42,6 +42,7 @@ Fonctions utiles:
     ofRandom(5);
     ofRandom(ofDegToRad(360.0)) //tire un angle au hasard
     ofMap() // fonctionne comme dans processing.
+    ofClamp(v, v0, v1);
     a.distance(b) // calcule la distance Euclidienne entre les points a et b.
     getNormalAtIndexInterpolated(...);
     getTangentAtIndexInterpolated(...);
@@ -57,7 +58,35 @@ Fonctions utiles:
     ofGetElapsedTimef();
     ofGetElapsedTimeMillis();
     ofGetFrameNum();
-	ofNoise();
+	ofNoise(x), ofNoise(x,y), ofNoise(x,y,z);
+    ofToSting(v); // convertit un int ou float a une string.
+    ofToInt(s), ofToFloat(s); // convertit une string en un int ou en un float
+    ofShowCursor(), ofHideCursor();
+    ofSetLineWidth(7);
+    ofSetCircleResolution(res);  // res est le nombre de segments;
+    ofEnableSmoothing(); ofDisableSmoothing();
+
+    ofColor color = ofColor::red;
+    color.setBrightness(10);
+
+    Ecrire dans la console:
+        cout << "time: " << ofGetElapsedTimef() << endl;
+
+    Constantes:
+
+    M_TWO_PI = 2 * pi;
+    a = b * DEG_TO_RAD;
+
+## Capture d'ecran
+
+    if(key == ''){
+        ofImage image;
+        
+        //grab contents of the screen
+        image.grabScreen(0,0, ofGetWidth(), ofGetHeight());
+        image.saveImage("screen.png");
+        // ou image.saveImage("screen.bmp"); // plus rapide
+    }
 	
 
 
@@ -148,6 +177,19 @@ Il faut utiliser une foncion beginSave et EndSave. Il est recommandé de défini
       ofEndSaveScreenAsPDF();
       isSavingPDF = false;
     }
+
+## Points
+
+Lorsqu'on utilise des coordonnees, il faut mieux utiliser directement la methode ofPoint directement accessible.
+
+ofPoint p;
+    p.x = 100.0;
+    p.y = 200.0;
+
+ou p = ofPoint{ 100.0, 200.0 }
+
+    p.length() : retourne longeur du vecteur.
+    p.normalize();
 
 
 ## Création de classe
