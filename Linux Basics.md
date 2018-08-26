@@ -288,3 +288,112 @@ chercher
             sudo airodump-ng wlp4s0
 
 (reprendre a 6h10 ici probleme je ne vois rien en scann voir si y'a un soucis)
+
+### intro2Linux script
+
+Voirs les fichiers caches avec ls -a . Ne pas hesiter a faire man program pour avoir des infos, je ne le fais pas assez.
+
+Savoir ou est installe un programme : which firefox
+
+Les passwords et users sont stockes dans /etc/passwd.
+
+      cat /etc/passwd
+
+Le dossier /tmp est le dossier qui stocke les fichiers temporaires. Tout le monde peut y acceder et y ecrire c'est la guest room du pc.
+
+dossier interessants dans linux:
+
+      /bin, /usr/bin : binaires lances depuis terminal
+      /dev : devices (ecran, souris, clavier, moniteur...)
+      /etc : important system files, log et configurations
+      /tmp : fichiers temporaires, lecture et ecriture autorisee pour tout le monde.
+
+Ecrire rapidement un nouveau fichier:
+
+      echo hello > myfile.txt
+      (marche meme si le fichier n'existe pas encore)
+
+Renommer fichier:
+
+      mv myfile.txt myfile.TXT
+
+Head permet d'afficher seulement le debut d'un fichier texte, du coup c'est utile en complement de la commande cat par exemple:
+(tail permet de voir la fin d'un fichier)
+
+      head press_directory.txt
+      tail press_directory.txt
+
+Voir la taille d'un fichier : wc
+(voir la page man pour plus d'infos, permet de savoir le nombre de lignes, de mots, etc)
+
+Pipe operator | 
+Permet de passer a la commande suivante directement. Exemple:
+
+      cat press_direcory.txt | head | wc -l
+
+Voir que le debut de l'aide par exemple:
+
+      grep --help | head
+
+Grep permet de faire une sorte de recherche et de filtre par regex.
+
+      cat press_directory.txt | grep "Phone"
+      cat press_directory.txt | grep "Phone" | wc -l
+      cat press_directory.txt | grep -v "Phone"  // Inverse le filtre
+      cat press_directory.txt | grep -i "phone"
+      cat press_directory.txt | grep -i "phone" | cut -d " " -f2
+      -> Dans le cut -d designe le delimiteur de champs (ici un espace) et f2 dis qu'on veut voir uniquement le champ numero 2, si on voulait voir plusieurs champs, on mettrait -f2,4,5.
+
+
+      cat press_directory.txt | grep -i "phone" | cut -d " " -f2 | uniq
+      -> uniq permet de ne pas afficher les lignes en doublons.
+      on peut aussi trier en remplacant uniq par sort.
+
+
+## Sudo and root
+
+Pour voir tous les users en cours, utiliser la commande "w".
+
+On peut aussi voir les addresses ip en faisant:
+
+      w -i
+      w --ip-addr
+
+So on fait :
+
+      cat /ect/passwd | grep "morgan"
+
+On obtient differents champs,
+      - username
+      - mot de passe (hashee, represente par un 'x')
+      - user ID
+      - group ID
+      - full name et description
+      - location du home directory
+      - le shell utilise
+
+Pour voir plus d'infos, utiliser la commande "id".
+
+Lorsqu on installe avec sudo , en realite on emprunte temporairement le compte root pour faire les modifications.
+Le compte root est different du compte morgan. Root est le superUser.
+
+Pour voir les hash des mots de passes, ils sont stockes dans /etc/shadow
+
+      sudo cat /ect/shadow
+
+Pour voir quel compte on est, executer "whomai"
+
+      whoiam  // renvoie morgan
+      sudo whoiam // renvoie root
+
+Le root user a toujours un id = 0.
+
+Ajouter un utilisateur : useradd
+
+      sudo useradd testuser -m -s "/bin/bash"
+
+On peut switcher temporairement de compte avec sudo pour faire certaines operations.
+
+      sudo -u testuser whoami // renvoi testuser
+
+Pour ajouter un password a un user, il faut utiliser la commande passwd.

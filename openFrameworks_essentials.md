@@ -320,7 +320,7 @@ Dans ofApp.cpp dans le setup:
     for(int i=0; i<NBALLS; i++){
       int size = (i + 1)*10;
       int randomX = ofRandom(0, ofGetWidth());
-      int randomY = ofRandom(0, ofGetHeight());
+        int randomY = ofRandom(0, ofGetHeight());
       groupOfBalls[i].setup(randomX, randomY, size);
     }
 
@@ -401,10 +401,24 @@ Note: on peut aussi charger des images directement depuis internet. Exemple: myI
 
 ## Travailler avec une Webcam
 
-Déclarer dans le header: ofVideoGrabber cam;
-Dans Setup: cam.setup(320,240) ou cam.initGrabber(320,240);
-Dans Update: cam.update();
-Dand Draw: cam.draw(0,0);
+
+        ofVideoGrabber grabber;
+        // dans setup
+        grabber.setDeviceID(0);
+        grabber.setDesiredFrameRate(30);
+        grabber.initGrabber(640,480);
+        // dans update
+        grabber.update();
+        if(grabber.isFrameNew()){
+            ofPixels pixels = grabber.getPixelsRef();
+            // ... faire des choses
+        }
+        // dans draw
+        grabber.draw(0,0);
+
+    Methode complementaire:
+        grabber.listDevices();
+        grabber.setVerbose(true); // print warnings and details in console ...
 
 
 
