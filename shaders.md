@@ -210,8 +210,7 @@ exemple cercle flouté aux bords:
     float d=length(uv);
     float r= 0.3;
     float c=smoothstep(r, r-0.1, d);
-    fragColor = vec4(vec3(c),1.0);
-    }
+    fragColor = vec4(vec3(c),1.0)}
 
 On peut aussi en faire une fonction afin de réutiliser cette fonction cercle:
 
