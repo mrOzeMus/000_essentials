@@ -22,6 +22,14 @@ Exemples print:
     print(1,2,3,'Hello') // renvoi '1 2 3 Hello'
     print('Line1\nLine2\Line3') // renvoi la réponse sur 3 lignes différentes.
 
+## Scripting
+
+Dans linux on peut si on veut utiliser idle qui est un environnement tout fait pour runner python.
+
+    operations mathematiques:
+    - exponent : 3 ** 4
+    - quotient division : 22 // 8
+
 ## Variables and Data types
 
 Pas besoin de let ou de var pour déclarer une variable.
