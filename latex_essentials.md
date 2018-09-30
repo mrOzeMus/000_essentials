@@ -1,5 +1,6 @@
 # Latex Essentials
-
+reprendre ici :
+https://www.youtube.com/watch?v=pcIzeN46ETc
 On va essayer de presenter les chose dans le style de vscode.
 
 ## Get started
