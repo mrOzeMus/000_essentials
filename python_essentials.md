@@ -308,3 +308,21 @@ On peut hériter d'une autre classe.
     print(kate.toString(200))
 
 //super permet d'hériter la classe
+
+## Creation d'un virtual environment
+
+A faire lorsqu'on travaille dans un repertoire particulier.
+```py
+python -m venv env
+```
+
+Pour utiliser l'environnement virtuel qu'on vient de creer, faire:
+```
+//sous linux
+source bin/activate
+
+//sous Windows
+env\Scripts\activate
+```
+
+L'environnement est ensuite disponible tout en bas a gauche de vscode.
