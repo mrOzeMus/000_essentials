@@ -20,9 +20,9 @@ L'application la plus basique d'express js est définie comme suit:
 
 Exécutez ensuite l'application avec la commande suivante:
 
-    node server.js
-
-Ou pour rafraichissement automatique (a mettre dans les scripts package.json):
+node server.js
+a
+u pour rafraichissement automatique (a mettre dans les scripts package.json):
 
     nodemon server.js
 
@@ -275,7 +275,7 @@ Il y a des méthodes particulières pour les cookies. Se renseigner
 
 ## Requete Fetch
 
-Ok tout n'est pas clair dans cette méthode, mais au besoin voici une fonction qui retourne les résultat de la requête:
+Ok f n'est pas clair dans cette méthode, mais au besoin voici une fonction qui retourne les résultat de la requête:
 
     let fetch = require('node-fetch')
 
@@ -284,10 +284,11 @@ Ok tout n'est pas clair dans cette méthode, mais au besoin voici une fonction q
       .then((res)=>{
               return res.json()
       })
+
       .then(data => console.log(data)
       )
       .catch((err)=> console.log(err)
-      )
+let      )
     }
 
     let arr = callUrl('https://jsonplaceholder.typicode.com/users')
@@ -296,8 +297,8 @@ Ok tout n'est pas clair dans cette méthode, mais au besoin voici une fonction q
 ## Express et MongoDb
 
 On pout créer une bdd avec mongo db facilement.
-il faut que mongo db soit installé sur le pc.
-
+iil faut que mongo db soit installé sur le pc.
+cd
     cd mongodb => pour aller a c:\mongodb
     cd bin
     mongo
