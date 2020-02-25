@@ -28,13 +28,13 @@ R: C'est un device qui fait bouger quelque chose, ou active quelque chose. (Dans
 
 Color code
 
-![colRes](./img/ard08.png)
+![colRes](./img/ard/ard08.png)
 
 La bande Or ou argent indique la tolérance.
 
 **Capacitor**
 
-![cap](./img/ard06.png)
+![cap](./img/ard/ard06.png)
 
 Un capacitor est deux feuilles de metal séparées par un isolant.
 Capacité mesurée en Farrads.
@@ -51,7 +51,7 @@ Diodes Zener sont des diodes utilisés comme voltage regulation.
 
 Exemple npn transisitor:
 
-![trans](./img/ard07.png)
+![trans](./img/ard/ard07.png)
 
 on va controller la Base, ce qui va ouvrir ou non le passage du courant avec un multiplier entre l'Emitteur et le Récepteur.
 On peut aussi parler de MOSFET lorsque les loads sont beaucoup plus importantes.
@@ -63,7 +63,7 @@ On peut aussi parler de MOSFET lorsque les loads sont beaucoup plus importantes.
 **Voltage regulators**
 Permet de garder un courant de la valeur que nous souhaitons.
 
-![voltreg](./img/ard05.png)
+![voltreg](./img/ard/ard05.png)
 
 Utilie pour les moteurs par exemple.
 Les capaciteurs permettents de garder un voltage correct pour un moteur par exemple.
@@ -76,7 +76,7 @@ Les capaciteurs permettents de garder un voltage correct pour un moteur par exem
 
 Binary logic, Most Signifiant Bit and Less Signifiant Bit
 
-![bits](img/ard02.png)
+![bits](img/ard/ard02.png)
 
 
 6.
@@ -110,7 +110,7 @@ void loop(){
 ```
 
 Lorsqu'on veut faire un digitalRead, il faut connecter la pin de cette facon:
-![circuit](/img/ard01.png)
+![circuit](/img/ard/ard01.png)
 De cette facon, si le circuit n'est pas branché, le courant prends l'embranchement avec le moins de resistance. et donc la pin est reliée au GND (donc 0V). Et si on ferme le contact, la pin est reliée directement au 5V.
 
 **Serial Printing**
@@ -135,13 +135,13 @@ Permet de controller le volume d'un speaker ou vitesse d'un moteur.
 Fonctionnement (schema):
 Le signal de sortie est équivalent par rapport au temps passé au niveau haut. De cette facon, en alternant niveau haut et niveau bas sur des intervalles de 20ms, on peut obtenir un signal "quasi" analogique.
 
-![pwm](./img/ard03.png)
+![pwm](./img/ard/ard03.png)
 
 Il est possible de faire 255 niveaux analogiques, car information codée sur 8bits.
 Le signal de sortie restera bien sur entre 0 et 5v:
 (Si on ecrit `analogWrite(pin, 100))`, alors Vsortie = 1.96V
 
-![pwm2](./img/ard04.png)
+![pwm2](./img/ard/ard04.png)
 
 
 Par exemple, dans le code suivant pour faire une led qui s'allume de moins en moins fort:
@@ -240,3 +240,14 @@ Les differences sont dans la capacité mémoire et certaines fonctions. (Entrée
 
 => AnalgoPins
     AnalogIn permets de lire des informations analogiques.
+
+
+**Branchements pull down et pull up**
+
+=> pull-down:
+
+![pudown](./img/ard/ard09.png)
+
+=> pull-up:
+
+![puup](./img/ard/ard10.png)
