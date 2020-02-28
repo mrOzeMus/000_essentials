@@ -124,6 +124,37 @@ De cette facon, sur GooglePlay un device qui n'a pas le sdk requis ne pourra mê
 ***
 ## **3. build and run Android app**
 
+### AndroidX Overview
+
+AndroidX compredns les libraries Android Jetpack. AndroidX aide a la backward compatibility avec les précédentes versions d'Android. AndroidX remplace les anciennes librairies Support d'Android (`android.support`). Toutes les nouvelles features seront sous `androidx`.
+
+Pour utiliser les `androidx` libraries dans un projet, il faut compiler au SDK Android 9.0 (API level 28).
+Dans le `gradle.properties` si `android.useAndroidX` est mis à `true`, alors Android utilisera la librairie AndroidX par défaut au lieu de la Support Library.
+
+### Android JetPack
+
+JetPack emporte tout un tas de collection d'Android libraries qui incorporent les best practises et sont backward compatible.
+Tous les Jetpack components sont dispo sur le Google Maven repositiory.
+
+dans le `build.gradle` file il faut intégrer `google()` comme ci:
+
+```gradle
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+``` 
+
+//TODO apprendre ce qu'est précisément Jetpack et comment l'utiliser.
+Pour Kotlin, les extensions sont appelées AndroidKTX.
+
+
+
+
+
+
 ***
 ## **4. display simple message popup using Toast or Snackbar**
 
@@ -181,6 +212,8 @@ Snackbar snackbar = Snackbar
 
 ***
 ## **5. display message outside your app's UI using Notification**
+
+Voir tuto : https://codelabs.developers.google.com/codelabs/android-training-notifications/index.html#1
 
 Notifications montrent des informations quand l'application n'est pas en cours. Composée d'une icone, un titre, et un texte concis.
 
@@ -342,7 +375,7 @@ Notification repliedNotification = new Notification.Builder(context, CHANNEL_ID)
     .build();
 
 // Issue the new notification
-NotificaitonManagerCompat notificaitonManager = NotificationManagerCompat.from(this);
+NotificationManagerCompat notificaitonManager = NotificationManagerCompat.from(this);
 notificationManager.notify(notificationId, repliedNotification);
 ```
 
@@ -425,4 +458,64 @@ String locale = primaryLocale.getDisplayName();
 
 ***
 ## **7. Schedule a background task using JobScheduler**
+
+### JobScheduler
+
+Le `JobScheduler` class permet de lancer des évènements sous certaines conditions ou parametres. Compte tenu des conditions, le JobScheduler calcul le meilleur moment pour l'exécution du Job. Les jobs peuvent être persistants après le reboot. La tâche implémentée est un `JobService`. Le JobScheduler est dispo dpuis l'API 21. Pour backward compatibility, utiliser le `WorkManager`.
+
+Pour utiliser le `JobScheduler`, on a besoin d'un `JobService` et d'un `JobInfo`.
+
+- JobInfo: objet qui contient le set de conditions qui déclenchet le job.
+- JobService: implémentation du job qui se lance lorsque les conditions du JobInfo sont remplies.
+
+Très bon tuto:
+https://codelabs.developers.google.com/codelabs/android-training-job-scheduler/index.html
+Faire aussi coding challenge: https://codelabs.developers.google.com/codelabs/android-training-job-scheduler/index.html#5
+
+### Summary JobScheduler
+
+- `JobScheduler` provides a flexible framework to intellignetly accomplish background services.
+- `JobScheduler` is only available on devices running API 21 and higher.
+- Tu use the `JobScheduler`, you needs two parts: `JobService` and `JobInfo`.
+- `JobInfo` is a set of conditions that trigger the job to run.
+- `JobService` implements the job to run under the conditions specified by `JobInfo`.
+- You only have to implement the `onStartJob()` and `onStopJob()` callback methods, which you do in your `JobService`.
+- The implementation of your job occurs, or is started in `onStartJob()`.
+- The `onStartJob()` method retunrs a boolean value that indicates whether the service needs to process the work in a separate thread.
+- if `onStartJob()` returns true, you must explicitly call `jobFinished()`. If `onStartJob()` returns false, the runtime calls `jobFinished()` on your behalf.
+- `JobService` is processed on the main thread, so you should avoid lengthy calculations or I/O.
+- `JobScheduler` is the manager class responsible for scheduling the task. `JobScheduler` batches tasks to maximize the efficiency of system resources, whihc means that you do not have exact control of when tasks are executed.
+
+
+## WorkManager
+
+Les classes du WorkManager a connaitre sont:
+- `Worker` : C'est ici qu'il y aura le code pour le work réel a faire dans le background. Il faut étendre cette classe et override la méthode `doWork()`.
+- `WorkRequest` : Cela représente une requête qui doit faire du travail. Il faut passer le Worker lors de la création du `WorkRequest`. Il faut aussi préciser les `Constraints` du worker lorsqu'il sera lancé. 
+- `WorkManager` : Cette classe planifie le `WorkRequest` et le fait se lancer. C'est lui qui gèrera l'allocation des resources systeme en honorant les contraintes spécifiées.
+
+excellent tuto: 
+https://codelabs.developers.google.com/codelabs/android-workmanager/index.html
+
+Il y a deux types de `WorkRequest`:
+- `OneTimeWorkRequest`: Workrequest qui ne va s'exciter qu'une fois.
+- `PeriodicWorkRequest`: Une WorkRequest qui va se répéter sur un cycle.
+
+
+
+## **8. Android Room with a View**
+
+Nous allons parler d'Architecture Components. Les Architecture components aident a structurer l'app de facon robuste, testable et maintenable, avec moins de code boilerplate.
+Diagram d'architecture.
+
+![archiComp](./img/android/and03.png)
+
+(Entity = annoted class that describes a database table when working with `Room`.)
+(DAO = Data access objact. A mapping of SQL queries to functions.)
+
+excellent tuto:
+https://codelabs.developers.google.com/codelabs/android-room-with-a-view/#0
+
+tuto a faire, pas évident pour le moment, revenir dessus le temps voulu.
+
 
