@@ -97,6 +97,85 @@ Si difficultés, revoir le tuto:
 https://codelabs.developers.google.com/codelabs/android-training-create-an-activity/index.html#12
 
 
+### Astuces et night layout
+
+Pour `Override` quelque chose, pour trouver la méthode concernée, faire **Ctrl+O**.
+Pour refactoriser des strings dans un XML, faire **Alt+Entrée**.
+
+### Créer un menu
+
+D'abord, il faut créer une nouvelle resource type menu.
+dans menu > main_menu.xml:
+
+```xml
+<?xml version="1.0" encoding="utf-8">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item 
+        andoir:id="@+id/night_mode"
+        android:title="@string/night_mode">
+</menu>
+```
+
+Le menu se create grace a `onCreateOptionsMenu(Menu menu)`:
+
+```java
+@Override
+public boolean onCreateOptionsMenu(Menu menu){
+    getMenuInflater().inflate(R.menu.main_menu, menu); // create menu from the layout
+    int nightMode = AppCompatDelegate.getDefaultNightMode();
+    if(nightMode == AppCompatDelegate.MODE_NIGHT_YES){
+        menu.findItem(R.id.night_mode).setTitle(R.string.day_mode);
+    }else{
+        menu.findItem(R.id.night_mode).setTitle(R.string.night_mode);
+    }
+    return true;
+}
+
+// fonction trigger lorsquon sélectionne un item d'un menu
+@Override boolean onOptionsItemSelected(@NonNull MenuItem item){
+    //check which item was clicked
+    if(item.getItemId() == R.id.night_mode){
+        int nightMode = AppCompatDelegate.getDefaultNightMode();
+        if(nightMode == AppCompatDelegate.MODE_NIGHT_YES){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }else{
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }
+        recreate();
+    }
+    return true;
+}
+```
+
+### Récupération d'une instance déjà sauvegardée.
+
+Si on ne veut pas que l'application se reset entièrement lorsque l'Activity est détruite (par exemple changement d'orientation, ou screen off), il faut sauvegarder le bundle:
+
+```java
+@Override
+protected void onSaveInstanceState(Bundle outState){
+    // save the score
+    outState.putInt("score Team1", mScore1);
+    outState.putInt("score Team2", mScore2);
+    super.onSaveInstanceState(outState);
+}
+
+// et il faut recupérer cette saveInstance lorsque l'Acitivity est crée:
+@Override
+protected void onCreate(Bundle savedInstanceState){
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+    ...
+    if(savedInstanceState != null){
+        mScore1 = savedInstanceState.getInt("score Team 1");
+        mScore2 = savedInstanceState.getInt("score Team 2");
+        ...
+    }
+}
+```
+
+
+
 ---
 ## **3. Construct an UI witch ConstraintLayout**
 
