@@ -389,8 +389,83 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHoder>{
 
 ## **10. Menu-based navigation**
 
+--
 ## **11. Implémentation de Drawer Navigation**
 
+Pour créer un drawer layout:
+
+![draw](./img/android/and20.png)
+
+Il faut creer un menu (faire add 'Android resource directory' et choisir 'menu'). Créer un nouveau `menu_item.xml`.
+
+```xml
+<?xml version...>
+<menu ...>
+    <item
+    android:id="@+id/profile"
+    android:title="Profile"/>
+    <item
+    android:id="@+id/contact"
+    android:title="Contact"/>
+    <item
+    android:id="@+id/about"
+    android:title="About"/>
+...
+</menu>
+```
+
+Dans MainActivity:
+```java
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    DrawerLayout drawerLayout;
+    Toolbar toolbar;
+    NavigationView navigationView;
+    ActionBarDrawerToggle toggle;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        drawerLayout = findViewById(R.id.drawer);
+        toolbar = findViewById(R.id.toolbar);
+        navigationView = findViewById(R.id.navigation_view);
+
+        setSupportActionBar(toolbar); // integre actionBar
+        ActionBar myBar = getSupportActionBar();
+        myBar.setSubtitle("Test");
+        myBar.setDisplayShowTitleEnabled(true);
+
+        // create the detection of the item selected
+        toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawerOpen, R.sting.drawerClosed);
+        drawerLayout.addDraweListener(toggle);
+        toggle.syncState();
+        navigationView.setNavigationItemSelectedListener(this);
+
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem){
+        switch(menuItem.getItemId()){
+            case R.id.profile:
+                Toast.makeText(this, "Profile selected", Toast.LENGTH_LONG).show();
+                break;
+            case R.id.contact:
+                Toast.makeText(this, "Contact selected", Toast.LENGTH_LONG).show();
+                break;
+            ...
+        }
+        return false;
+    }
+}
+```
+
+
+
+
+
+--
 ## **12.Activity and Fragemnts.**
 
 Un fragment est en quelque sorte comme une petite Activity, avec quelques propriétés différentes.

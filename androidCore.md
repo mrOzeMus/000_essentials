@@ -52,6 +52,11 @@ Pour les broadcast receivers, l'intent définie les annonces a être broadcast (
 
 // TODO : rechercher des tutos sur les intents pour bien comprendre exactement ce que cést.
 
+Les `intents` sont utilisées pour:
+- Lancer une Activity
+- Lancer un service (ouvrir email, web browser, faire un appel)
+- Passer des datas dans l'application en cours ou dans une autre application.
+
 
 ### Manifest file
 
