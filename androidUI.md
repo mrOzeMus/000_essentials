@@ -256,7 +256,44 @@ public void foo(View view){
 // TODO: pour l'animation se renseigner davantage.
 
 
+--
 ## **4. Create a custom View class and add it to a Layout**
+
+**Introduction au ViewModel**
+
+Puisque dans Android, l'activity est relancée très régulièrement (et recrée), par exemple lors d'un passage au format paysage, il faut éviter de stocker des données dans l'Activity. A la place, il est préférable d'utiliser un `ViewModel` qui lui aura la charge de stocker les données. De manière générale il est mieux de garder une responsabilité par élément. Les activity ne devraient pas stocker de données, ce n'est pas vraiment leur role, elles sont la juste pour les règles de rendu.
+
+![viewmodel](./img/android/and18.png)
+
+**Il ne faut jamais passer le Context dans le ViewFolder**
+
+Pour faire un viewModel:
+
+```java
+public class MyViewModel extends ViewModel {
+    private int myVar = 1;
+
+    public int getMyVar(){
+        return myVar;
+    }
+}
+```
+et dans MainActivity
+
+```java
+protected void onCreate(Bundle savedInstanceState){
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+
+    MyViewModel model = new ViewModelProvider(this).get(MyViewMode.class);
+    int result = model.getMyVar();
+
+    TextView tv = findViewById(R.id.textView);
+    tv.setText(Integer.toString(result));
+}
+```
+
+
 
 ## **5. Implémentation d'un theme custom**
 
@@ -353,3 +390,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHoder>{
 ## **10. Menu-based navigation**
 
 ## **11. Implémentation de Drawer Navigation**
+
+## **12.Activity and Fragemnts.**
+
+Un fragment est en quelque sorte comme une petite Activity, avec quelques propriétés différentes.
+
+![frag](./img/android/and19.png)
