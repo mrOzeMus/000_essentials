@@ -38,32 +38,60 @@ findViewById(R.id.addBtn) // R veut dire chercher parmis nos ressources.
 setOnClickListerner // equivalent addEventListener
 
 exemple de code pour une simple addition:
+**Création de onClick Listener:**
 
-    public class MainActivity extends AppCompatActivity {
+```java
+public class MainActivity extends AppCompatActivity {
 
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_main);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-            Button addBtn = (Button) findViewById(R.id.addBtn);
-            addBtn.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View view){
-                    EditText firstNumEditText = (EditText) findViewById(R.id.firstNumEditText);
-                    EditText secondNumEditText = (EditText) findViewById(R.id.secondNumEditText);
-                    TextView resultTextView = (TextView) findViewById(R.id.resultTextView);
+        Button addBtn = (Button) findViewById(R.id.addBtn);
+        addBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                EditText firstNumEditText = (EditText) findViewById(R.id.firstNumEditText);
+                EditText secondNumEditText = (EditText) findViewById(R.id.secondNumEditText);
+                TextView resultTextView = (TextView) findViewById(R.id.resultTextView);
 
-                    int num1 = Integer.parseInt(firstNumEditText.getText().toString());
-                    int num2 = Integer.parseInt(secondNumEditText.getText().toString());
-                    int result = num1 + num2;
+                int num1 = Integer.parseInt(firstNumEditText.getText().toString());
+                int num2 = Integer.parseInt(secondNumEditText.getText().toString());
+                int result = num1 + num2;
 
-                    resultTextView.setText(result + "");
-
-                }
-            });
-        }
+                resultTextView.setText(result + "");
+            }
+        });
     }
+}
+```
+
+Si on veut déplacer la méthode Listener a part pour plus d'organisation et de clareté dans le code, on peut faire:
+
+```java
+public class MainActivity extends AppCompatActivity{
+    Button btnBefore;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        btnBefore = findViewById(R.id.button);
+        btnBefore.setOnClickListener(btnBeforeListener);
+    }
+
+    // ce qui se passe dans le listener est maintenant en dehors de onCreate.
+    private View.OnClickListener btnBeforeListener = new View.OnClickListener(){
+        @Override
+        public void onClick(View v){
+            Log.e("DEBUG" , "Button clicked");
+        }
+    };
+}
+
+```
 
 ## Debugging
 
@@ -84,46 +112,52 @@ On peut alors voir la nouvelle vue acivitySecond.xml.
 
 ## Creation d'une intent
 
-             public void onClick(View v){
-                Intent startIntent = new Intent(getApplicationContext(), SecondActivity.class);
-                // show how to pass information to another activity
-                startIntent.putExtra("com.example.moi.quicklauncher.SOMETHING", "HELOOWORLD");
-                startActivity(startIntent);
-            }
+```java
+public void onClick(View v){
+    Intent startIntent = new Intent(getApplicationContext(), SecondActivity.class);
+    // show how to pass information to another activity
+    startIntent.putExtra("com.example.moi.quicklauncher.SOMETHING", "HELOOWORLD");
+    startActivity(startIntent);
+}
 
-            // le block precedent va permettre de passer des donnees a la nouvelle vue. Passage d'informations entre differents components.
+// le block precedent va permettre de passer des donnees a la nouvelle vue. Passage d'informations entre differents components.
+```
 
 Code de la secondActivity:
 
-        public class SecondActivity extends AppCompatActivity {
+```java
+public class SecondActivity extends AppCompatActivity {
 
-          @Override
-          protected void onCreate(Bundle savedInstanceState) {
-              super.onCreate(savedInstanceState);
-              setContentView(R.layout.activity_second);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_second);
 
-              if(getIntent().hasExtra("com.example.moi.quicklauncher.SOMETHING")){
-                  TextView tv = (TextView) findViewById(R.id.textView);
-                  String text = getIntent().getExtras().getString("com.example.moi.quicklauncher.SOMETHING");
-                  tv.setText(text);
-              }
-          }
-      }
+        if(getIntent().hasExtra("com.example.moi.quicklauncher.SOMETHING")){
+            TextView tv = (TextView) findViewById(R.id.textView);
+            String text = getIntent().getExtras().getString("com.example.moi.quicklauncher.SOMETHING");
+            tv.setText(text);
+        }
+    }
+}
+```
 
 Lancer une activity en dehors de notre app (exemple ici aller sur google):
 
-        Button googleBtn = (Button) findViewById(R.id.googleBtn);
-        googleBtn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                String google = "http://www.google.com";
-                Uri webaddress = Uri.parse(google);
-                Intent gotoGoogle = new Intent(Intent.ACTION_VIEW, webaddress);
-                if (gotoGoogle.resolveActivity(getPackageManager()) != null) {
-                    startActivity(gotoGoogle);
-                }
-            }
-        });
+```java
+Button googleBtn = (Button) findViewById(R.id.googleBtn);
+googleBtn.setOnClickListener(new View.OnClickListener(){
+    @Override
+    public void onClick(View v){
+        String google = "http://www.google.com";
+        Uri webaddress = Uri.parse(google);
+        Intent gotoGoogle = new Intent(Intent.ACTION_VIEW, webaddress);
+        if (gotoGoogle.resolveActivity(getPackageManager()) != null) {
+            startActivity(gotoGoogle);
+        }
+    }
+});
+```
 
 # Infos Supplementaires
 
@@ -138,44 +172,49 @@ Quoi qu'il arrive quand on met des inputs on recuperera une String , meme si on 
 
 Faire un log:
 
+```java
     public void onClick(View v){
         Log.i("myTag", msg: "this is the message");
     }
+```
 
 Ca va logger dans la console (logcat) le message. On peut filtrer pour avoir que "info" qui permet de voir que les logs faits avec cette methode.
 
-    Mettre Focus sur un champ par default:
-    txtNumber.requestFocus();
+Mettre Focus sur un champ par default: `txtNumber.requestFocus();`
 
 Les couleurs (equivalent du css) est stocke dans res > values > styles.xml
 
 Example: creer un nouveau boutton:
 
-           <style name="GreenButton" parent="@android:style/Widget.Button">
-                 <item name="android:textColor">#00FF00</item>
-          </style>
+```xml
+    <style name="GreenButton" parent="@android:style/Widget.Button">
+            <item name="android:textColor">#00FF00</item>
+    </style>
+```
 
 On peut aussi definir une couleur en bas:
 
-        <color name="green">#00FF00</color>
-
-    Et l'utiliser:
-
-        <item name="android:textColor">@color/green</item>
+```xml
+<color name="green">#00FF00</color>
+<!-- Et l'utiliser: -->
+<item name="android:textColor">@color/green</item>
+```
 
 Donc example:
 
+```xml
     <style name="GreenButton" parent="@android:style/Widget.Button">
         <item name="android:textColor">@color/green</item>
         <item name="android:textSize">15dp</item>
         <item name="android:textStyle">italic</item>
         <item name="android:typeface">serif</item>
     </style>
+```
 
 On peut alors appliquer le style a un element par exemple (deconseiller).
 Ou bien mettre dans le AppTheme la ligne:
 
-    <item name="android:buttonStyle>@style/GreenButton</item>
+  `<item name="android:buttonStyle>@style/GreenButton</item>`
 
 ## Integration d'images
 
@@ -187,51 +226,55 @@ Click droit sur res > new > ressource d'activite. Donner un nom et choisir menu 
 
 Creation du menu dans main_menu.xml par exemple:
 
-        <?xml version="1.0" encoding="utf-8"?>
-        <menu xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto">
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-            <item android:id="@+id/menu_other"
-                android:orderInCategory="100"
-                app:showAsAction="never"
-                android:title="Other item" />
+    <item android:id="@+id/menu_other"
+        android:orderInCategory="100"
+        app:showAsAction="never"
+        android:title="Other item" />
 
-            <item android:id="@+id/menu_settings"
-                android:orderInCategory="100"
-                app:showAsAction="never"
-                android:title="settings" />
-        </menu>
+    <item android:id="@+id/menu_settings"
+        android:orderInCategory="100"
+        app:showAsAction="never"
+        android:title="settings" />
+</menu>
+```
 
 Et dans mainActivity.java :
 
+```java
 public class MainActivity extends AppCompatActivity {
 
-            @Override
-            protected void onCreate(Bundle savedInstanceState) {
-                super.onCreate(savedInstanceState);
-                setContentView(R.layout.activity_main);
-            }
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+    }
 
-            @Override
-            public boolean onCreateOptionsMenu(Menu menu) {
-                getMenuInflater().inflate(R.menu.main_menu, menu);
-                return super.onCreateOptionsMenu(menu);
-            }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
-            @Override
-            public boolean onOptionsItemSelected(MenuItem item) {
-                switch( item.getItemId()){
-                    case R.id.menu_other:
-                        Toast.makeText(this, "other menu selected", Toast.LENGTH_LONG).show();
-                        return true;
-                    case R.id.menu_settings:
-                        Toast.makeText(this, "Settings menu selected", Toast.LENGTH_LONG).show();
-                        return true;
-                    default:
-                        return super.onOptionsItemSelected(item);
-                }
-            }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch( item.getItemId()){
+            case R.id.menu_other:
+                Toast.makeText(this, "other menu selected", Toast.LENGTH_LONG).show();
+                return true;
+            case R.id.menu_settings:
+                Toast.makeText(this, "Settings menu selected", Toast.LENGTH_LONG).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
+    }
+}
+```
 
 # Ajouter librairies exterieur au projet
 

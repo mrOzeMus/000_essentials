@@ -466,8 +466,84 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 --
-## **12.Activity and Fragemnts.**
+## **12.Activity and Fragments.**
 
 Un fragment est en quelque sorte comme une petite Activity, avec quelques propriétés différentes.
 
 ![frag](./img/android/and19.png)
+
+Les fragements peuvent facilement être récupérés et intégrés dans différentes activities.
+
+Création d'un fragment simple type Login:
+(voir tuto excellent: https://www.youtube.com/watch?v=8MCvEtjTxvs)
+
+Pour créer un fragment faire File > New > Fragment (Blank)
+Un fichier de layout va être crée ainsi qu'un fichier BlankFragment.java.
+
+Mettre alors ce que l'on veut dans le layout (remplacer le layout de base par un ConstraintLayout)
+Et pour le fichier java, il y a deux facons d'implémenter, soit on va mettre les méthods dans le fragement, ou bien avec le code généré automatiquement, les méthodes devront etre définies dams l'Activity parente.
+
+```java
+// Après avoir effacé le code template
+
+public class BlankFragment extends Fragment{
+    
+    private EditText txtLogin;
+    private EditText txtPassword;
+    private Button btnConnect;
+
+    public void onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){ // création du fragment
+        View rootView = inflater.inflate(R.layout.fragment_blank, conatiner, true);
+
+        txtLogin = (EditText) rootView.findViewById(R.id.txtLogin);
+        txtPassword = (EditText) rootView.findViewById(R.id.txtPassword);
+        btnConnect = (Button) rootView.findViewById(R.id.btnConnect);
+
+        btnConnect.setOnClickListener(btnConnectListener); // attache le listener
+        return rootView;
+    }
+
+    // implementation du listener
+    private View.OnClickListener btnConnectListener = new View.OnClickListener() {
+        @Override
+        public void onCLick(View v){
+            Log.i("Debug", txtLogin.getText() + " / " + txtPassword.getText());
+        }
+    };
+}
+```
+
+Pour intégrer le Fragment, le glisser dans l'acitivy_main.xml. 
+
+![frag](./img/android/and21.png)
+
+Pour pouvoir voir le fragment directement dans l'apercu, cliquer sur la mention "Unknow fragments" et sélectionner le "Pick Layout" pour indiquer quel layout correspond au Fragment qui doit etre rendu.
+
+Revoir la fin du tuto pour voir comment faire avec le code template fournit de base par un fragment.
+
+--
+
+## **13. Creation d'une alert box.**
+
+L'alert box et un moyen facile et rapide de demander Oui/Non à l'utilisateur:
+
+![alert](./img/android/and22.png)
+
+Et pour l'implémentation JAVA:
+
+```java
+public void congratulations(){
+    AlertDialog myAlert = new AlertDialog.Builder(this).create();
+    myAlert.setTitle("my Alert Dialog Window");
+    myAlert.setMessage("Hello world");
+
+    // methode a répéter pour chaque bouton. (BUTTON_POSITIVE, BUTTON_NEGATIVE, BUTTON_NEUTRAL)
+    myAlert.setButton(AlertDialog.BUTTON_POSITIVE, "OUI", new AlertDialog.OnClickListener(){
+        @Override
+        public void onClick(DialogInterface dialog, int which){
+            Log.e("DEBUG", "alert dialog clicked");
+        }
+    });
+    myAlert.show();
+}
+```
