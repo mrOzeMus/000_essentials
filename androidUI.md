@@ -387,9 +387,46 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHoder>{
 
 ## **9. Bind local data to a RecyclerView list using Paging Library**
 
+---
 ## **10. Menu-based navigation**
 
---
+Pour la création d'un menu simple dans Android studio, faire d'abord une nouvelle resource de menu : New > Android resource > sélectionner "menu".
+
+Dans le fichier menu_main.xml, insérer les items.
+
+![menu](./img/android/and24.png)
+
+***NOTE:***
+Le champ `show as Action` permet de faire apparaitre l'élément a coté des trois petits points, un peu comme une icon, mettre `Never` si on veut que l'item soit dans la liste "normale". Ne pas oublier de mettre une icone si on a besoin qu'il soit affiché en "Always".
+
+et pour créer le menu, il faut utiliser des méthodes particulières `onCreateOptionsMenu` et `onOptionsSelected`:
+
+```java
+@Override
+public boolean onCreateOptionsMenu(Menu menu){
+    getMenuInflater().inflate(R.menu.main_menu, menu); // indique le menu a utiliser
+    return super.onCreateOptionsMenu(menu);
+}
+
+// Listener pour le menu
+@Override
+public boolean onOptionsItemSelected(@NonNull MenuItem item){
+    switch(item.getItemId()){
+        case R.id.menu_other:
+            Toast.makeText(this, "other selected", Toast.LENGTH_LONG).show())
+            return true;
+        case R.id.menu_settings:
+            Toast.makeText(this, "settings selected", Toast.LENGTH_LONG).show();
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+    }
+}
+```
+
+Remarque: On peut avoir un menu par Activity dans Android.
+
+---
 ## **11. Implémentation de Drawer Navigation**
 
 Pour créer un drawer layout:
@@ -462,6 +499,60 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 ```
 
 
+
+### Autre facon plus simple et plus basique
+
+Suivant ce tuto extremement clair:
+https://www.youtube.com/watch?v=doJ24Gn7MVo&list=PLBNheBxhHLQxmCCiHGkXBAIsC1VKpZkSe&index=5
+
+D'abord creer un nouveau menu ( nouvelle resource Android type menu).
+Ajouter les items que l'on souhaite comme il convient.
+
+Tout va se jouer ensuite dans le `activity_main.xml`:
+Créer un `DrawerLayout` dans le xml qui prends comme dimensions match_parent dans les 2 directions.
+
+A l'intérieur il y aura deux LinearLayout verticaux. Le premier contiendra l'apparition de notre menu hamburger sur le coté. Donner à celui ci la caractéristique `android:layout_gravity="end"`. (Pour que le layout apparaisse depuis la droite).
+
+![layotu](./img/android/and25.png)
+
+![layout](./img/android/and26.png)
+
+
+Le menu devrait deja pouvoir apparaitre sur le coté si on slide, mais pour le faire apparaitre lorsqu'on appuis sur l'icone hamburger, faire dans `MainActivity.java`:
+
+```java
+public class MainActivity extends AppCompatActivity{
+
+    private DrawerLayout drawerLayout;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        drawerLayout = findViewById(R.id.drawer_layout);
+    }
+
+    //creation menu
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item){
+        switch(item.getItemId()){
+            case R.id.hamburgerMenu:
+                // ouverture du layout vers la gauche
+                drawerLayout.openDrawer(Gravity.RIGHT);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+}
+```
 
 
 

@@ -459,6 +459,12 @@ Locale primaryLocale = context.getResources().getConfiguration().getLocales().ge
 String locale = primaryLocale.getDisplayName();
 ```
 
+### Résumé
+
+De manière plus simple, afin d'internationaliser, le plus facile est d'ouvrir le fichier `strings.xml` et de cliquer sur `Open Editor`. Ici on peut alors facilement ajouter une langue, et visualiser les correspondances des strings entre chaque langue.
+
+![langues](./img/android/and23.png)
+
 
 
 ***
