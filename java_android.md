@@ -280,3 +280,108 @@ public class MainActivity extends AppCompatActivity {
 
 Pour cela, il faut faire file > Project Structure > Dependencies > Add et chercher la librairie voulue.
 Exemple avec geolocalisation chercher com.google.gson etc...
+
+
+# Ajouter une video
+
+Il faut ajouter d'abord un widget `VideoView` dans le xml, et il suffit ensuite de faire:
+
+```java
+private VideoView videoView;
+
+@Override
+protected void onCreate(Bundle savedInstanceState){
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+
+    videoView = findViewById(R.id.videoView);
+    Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.demo);
+    videoView.setVideoURI(uri);
+}
+
+@Override
+protected void onResume(){
+    super.onResume();
+    videoView.start();
+}
+
+@Override
+protected void onPause(){
+    super.onPause();
+    videoView.pause();
+}
+```
+
+***Attention***: Tous les types de fichiers vidéos ne sont pas pris en charge, les fichiers supportés sont dans la doc, le standard est les fichiers .webm .
+
+
+# Démarrer une Activity depuis une autre Activity
+
+dans MainActivity:
+
+```java
+public class MainActivity extends AppCompatActivity {
+
+    private final static int SECOND_CALL_ID = 1234;
+    private EditText txtInputData;
+    private Button btnOpenActivity;
+    private TextView lblResultText;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        txtInputData = findViewById(R.id.txtInputData);
+        btnOpenActivity=findViewById(R.id.btnOpenActivity);
+        lblResultText =findViewById(R.id.lblResult);
+
+        btnOpenActivity.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ActivitySecond.class);
+                intent.putExtra("message", txtInputData.getText().toString());
+                startActivityForResult(intent, SECOND_CALL_ID);
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == SECOND_CALL_ID){
+            lblResultText.setText("Result == "+ resultCode);
+        }
+    }
+}
+```
+
+et dans la 2eme activity:
+
+```java
+public class ActivitySecond extends AppCompatActivity {
+
+    private TextView lblInputData;
+    private Button btnClose;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_second);
+
+        lblInputData = findViewById(R.id.lblInputData);
+        btnClose= findViewById(R.id.btnClose);
+
+        String inputData = this.getIntent().getExtras().getString("message");
+        lblInputData.setText(inputData);
+
+        btnClose.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                setResult(33);
+                finish();
+            }
+        });
+    }
+}
+```
