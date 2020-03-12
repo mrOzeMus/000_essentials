@@ -385,3 +385,39 @@ public class ActivitySecond extends AppCompatActivity {
     }
 }
 ```
+
+# Faire une Http Request
+
+Pour faire une http request vers un fichier json, on aura besoin de la librairie Genson pour faciliter le parsing du json en resultat:
+
+```java
+protectid void on Resume(){
+    super.onResume(); // il ne faut pas faire la request dans le onCreate, sinon on risque de bloquer les elements graphiques.
+
+    new Thread(new Runnable(){
+        public void run(){
+            HttpURLConnection urlConnection = null;
+            try{
+                URL url = new URL("http://192.168.0.10:8080/WebServicesRest/rest/article/2")
+                urlConnection=  (HttpURLConnection) url.openConnection();
+                urlConneciton.setRequestMethod("GET");
+
+                InputSTream in = new BufferedInputStream(urlConnection.getInputStream());
+                Scanner scanner = new Scanner(in);
+                final Article article = new Genson().deserialize(scanner.nextLine(), Article.class); // transforme le json en class // final est necessaire pour pouvoir utiliser l'article dans le threadUI
+
+                runOnUiThread(new Runnable(){
+                    @Override
+                    public void run(){
+                        txtIdentifier.setText("" + article.getIdArticle());
+                        ...
+                    }
+                });
+                in.close();
+            }catch{ ... }finally{
+                if(urlConnection != null) urlConnection.disconnect();
+            }
+        }
+    }).start();
+}
+```
