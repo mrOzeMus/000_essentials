@@ -59,3 +59,40 @@ public class CalculatorTest{
 
 --
 ## **4.Savoir comment écrite des test automatisés pour Android.**
+
+Exemple de création avec le framework Espresso.
+Pour activer cela, il faut intégrer le framework dans le build graddle (app):
+
+```
+androidTestImplementation 'androidx.test:rules:1.1.0'
+androidTestImplementation 'androidx.test:runner:1.1.0'
+androidTestImplementation 'androidx.test.espresso:espresso-intents:3.1.0'
+```
+
+Pour implémenter concrètement les tests dans l'application, faire:
+
+```java
+@RunWith(AndroidJUnit4.class)
+@LargeTest
+public class ExampleInstrumentedTest{
+
+    private String stringToBeTyped;
+
+    @Rule
+    public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(MainActivity.class); // création de l'activity
+
+    @Before
+    public void initValidString(){
+        stringToBeTyped = "Espresso";
+    }
+
+    @Test
+    public void changeText_sameActivity(){
+        onView(withId(R.id.changeText)).perform(click());
+        // ou 
+        onView(withId(R.id.inputField))
+            .perform(typeText(stringToBeTyped));
+        onView(withId(R.id.inputField)).check(matches(withText(stringToBeTypes))); // vérification que le champ est bien comme il faudrait.
+    }
+}
+```
