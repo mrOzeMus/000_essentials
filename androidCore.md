@@ -16,6 +16,9 @@ Il est quand même possible de partager des données entres plusieurs apps:
 - Une app peut demander les permission pour accéder a certaines données. (camera, bluetooth, location, ...) L'utilisateur autorise explicitement ces autorisations.
 
 
+![arch](img/android/and27.png)
+
+![arch](img/android/and28.png)
 
 ***
 ## **2. Basic building blocks of an android app**
@@ -41,6 +44,8 @@ Un broadcast receivers est par exemple une alarme, par rapport a une application
 Le broadcast receiver est une subclass de `BroadcastReceiver`. chaque broadcast est un `Intent` object. 
 
 ### Content providers
+
+![provider](./img/android/and29.png)
 
 Le content providers est là pour gérer des données qui peuvent être stockéesdans le file systeme, une base SQL, sur le web , ou n'importe quelle autre moyen de stockage.
 Pour le systeme, un content provider est un point d'entrée dans une app pour des data items, identifiés par un URI scheme. L'URI est persistante et ne requiert pas que l'App tourne encore.

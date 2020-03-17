@@ -25,9 +25,9 @@ Principaux components ?
 
 - Activities (représent UI)
 - Intents ( permet de faire le lien entre les activities et sert aussi a demarrer certaines calls )
-- Services ( services faits en arriere plan comme un telechargement oui la planification d 'un event)
-- Broadcast receivers
-- Content providers ( pour l'échange de données entre plusieurs applications )
+- Services ( It is a component that runs in the background to perform long-running operations without interacting with the user and it even works if application is destroyed.)
+- Broadcast receivers ( It responds to breoadcast messages from other applications of from the system itself. These messages are sometime called events or intents)
+- Content providers (Content providers share data between applications)
 
 ---
 
@@ -54,7 +54,7 @@ Facilite la comminication entre les components. Il y 3 cas d'usage typiques:
 
 Quelles sont les types d'Intents ?
 
-Implicite et explicite. Les explicite intents permettent de passer des extra datas dans l'intent.
+Implicite et explicite. Implicit intent is when the target component is not definaed in the intent and the android system has to evaluate the registered compoennts based on the intent data.
 
 --- 
 Expliquer le but et la structure du manifest file
@@ -104,3 +104,160 @@ Soit Statiquement (dans layout.xml), ou soit Dynamiquement en utilisant le Fragm
 Expliquer le Lifecycle methods des Fragments ?
 
 Un fragment doit être intégré dans une Activity et son cycle de vie est dépendant du cycle de vie de son Activity.
+Chaque fragement peut etre manipulé indépendament (les ajouter ou les enlever).
+
+---
+
+What is ListFragment ? How to use it ?
+
+Un fragement qui displsy a list of items by binding to a data source such as an array or Cursor.
+It exposes event handlers when the user selects an item.
+ListFragment hosts a ListView object qui peut etre lié a des datas.
+
+---
+
+Nommer 4 differents types de Fragment Classes ?
+
+- DialogFragment
+- ListFragment
+- PreferenceFragment
+- Single Frame Fragment
+
+---
+
+What is a Thread ? Is service with thread possible ?
+
+Thread is a dispatchable unit to CPU. Yes service with thread is possible.
+
+---
+
+Define AsyncTask, methods and how to use it ?
+
+AsyncTask is a class to achieve multithreading.
+A utiliser pour update l'UI.
+Methodes sont :
+- onPreExecute
+- doInBackground
+- onUpdateProgress
+- onPostExecute
+Les 3 types de parameters sont:
+- Params
+- Progress
+- Result
+
+---
+
+What are Loaders ?
+
+---
+
+What are the options to save data in client device ?
+
+On peut utiliser:
+- Shared Preferences
+- Internal Storage (SQLite)
+- External Storage(Sd card)
+- Content Providers
+- Storing in Network Server
+
+---
+
+Quel fields peuvent etre storés dans in SQLite Database ?
+
+- null
+- integer
+- real
+- text
+- blob
+
+---
+
+Nommer 5 methodes qui aident a arriver vers un cursor object ?
+
+- moveToFirst()
+- moveToLast()
+- moveToNext()
+- moveToPrevious()
+- moveToPosition(int position)
+
+---
+
+What is a web service ? What are the common formats to exchange data ?
+
+Web Service application component used to transfer data over the web. Allow businesses to communicate with each other. Promotes interopeerability, flexibility, reusability.
+Les formats communs sont XML et JSON
+
+---
+
+Name the methods used to Send Information and Retrieve information ?
+
+HTTP methods like GET, POST, DELETE, PUT, HEAD, CONNECT, OPTIONS
+
+---
+
+How is web service implemented in Android ?
+
+Java.net package provides the API to access the internet. Url and HttpURLConnection sont les principales classes pour l'accès a internet.
+
+
+---
+
+Write the code fragement which check whether the Android device is connected to the internet or not ?
+
+---
+
+What is Android ?
+
+Mobile OS developed by Google. Concu pour téléphones et devices. Open Source. Written in Java. Android Kernel est basé sur un linux kernel.
+
+---
+
+What is android runtime ?
+
+---
+
+Que signifie APK ?
+
+Android Packaging Kit.
+
+
+---
+
+What is a singleton class in Android ?
+
+---
+
+What's the difference between a file, a class and an activity in android ?
+
+---
+
+What is Dalvik Virtual Machine ?
+
+---
+
+What are the different kinds of context in Android ?
+
+- this / getActivity()
+- getContext()
+- getBaseContext()
+- getApplicationContext()
+
+
+---
+
+Define Android application resource files ?
+
+---
+
+What is ADB ?
+
+Android Debug Bridge
+
+---
+
+List and explain the four Java classes related to using sensors on the Android platform ?
+
+- SensorManager
+- Sensor
+- SensorEvent
+- SensorEventListener
