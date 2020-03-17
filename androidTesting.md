@@ -96,3 +96,38 @@ public class ExampleInstrumentedTest{
     }
 }
 ```
+
+#### Methods
+
+vérifier si une activity est affichée:
+
+```java
+@Test
+public void test_isActivityInView(){
+    ActivityScenario<MainActivity> scenario = ActivityScenario.launch(MainActivity.class);
+    onView(withId(R.id.main)).check(matches(isDisplayed));
+
+}
+```
+
+Ajouter une règle pour plusieurs tests:
+
+```java
+@Rule
+public ActivityTestRule<SecondActivity> activityRule = new ActivityTestRule(SecondActivity.class);
+```
+
+Tester l'affichage d'une nouvelle Activity sur l'appuie d'un boutton
+
+```java
+    @Test
+    public void test_navSecondaryActivity() {
+        ActivityScenario<MainActivity> scenario = ActivityScenario.launch(MainActivity.class);
+        onView(withId(R.id.button_next_activity)).perform(click());
+        onView(withId(R.id.secondary)).check(matches(isDisplayed()));
+        onView(withId(R.id.button_back)).perform(click());
+        onView(withId(R.id.main)).check(matches(isDisplayed()));
+
+    }
+
+```
