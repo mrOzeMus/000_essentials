@@ -63,6 +63,14 @@ Les `intents` sont utilisées pour:
 - Passer des datas dans l'application en cours ou dans une autre application.
 
 
+### Job Scheduler ( mieux d'utiliser le workManager)
+
+Le job scheduler est la pour prevoir une action selon les criteres suivants:
+- Faire quelque chose quand le device est en train d'etre chargée.
+- Faire quelque chose selon le type de connexion internet
+- Faire quelque chose dans x minutes.
+
+
 ### Manifest file
 
 Le manifest file définit:
@@ -533,5 +541,6 @@ excellent tuto:
 https://codelabs.developers.google.com/codelabs/android-room-with-a-view/#0
 
 tuto a faire, pas évident pour le moment, revenir dessus le temps voulu.
+
 
 
