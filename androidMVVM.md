@@ -8,6 +8,8 @@ Dans l'ordre on fera:
 - NoteDatabase (store les données)
 - NoteRpository
 - NoteViewModel
+- NoteAdapter (for recyclerView) with NoteViewHolder
+- MainActivity    
 
 
 ## 1.Objet de base
@@ -235,6 +237,87 @@ public class NoteViewModel extends AndroidViewModel {
 
     public LiveData<List<Note>> getAllNotes(){
         return allNotes;
+    }
+}
+```
+
+## 6. Note Adapter
+
+```java
+public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteHolder> {
+    private List<Note> notes = new ArrayList<>();
+
+    @NonNull
+    @Override
+    public NoteHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.note_item, parent, false);
+        return new NoteHolder(itemView);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull NoteHolder holder, int position) {
+        Note currentNote = notes.get(position);
+        holder.textViewTitle.setText(currentNote.getTitle());
+        holder.textViewDescription.setText(currentNote.getDescription());
+        holder.textViewPriority.setText(String.valueOf(currentNote.getPriority()));
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return notes.size();
+    }
+
+    public void setNotes(List<Note> notes){
+       this.notes = notes;
+       notifyDataSetChanged();
+    }
+
+    class NoteHolder extends RecyclerView.ViewHolder{
+        private TextView textViewTitle;
+        private TextView textViewDescription;
+        private TextView textViewPriority;
+
+        public NoteHolder(@NonNull View itemView) {
+            super(itemView);
+            textViewDescription = itemView.findViewById(R.id.text_view_description);
+            textViewTitle = itemView.findViewById(R.id.text_view_title);
+            textViewPriority = itemView.findViewById(R.id.text_view_priority);
+        }
+    }
+}
+```
+
+## 7. MainActivity
+
+
+```java
+public class MainActivity extends AppCompatActivity {
+
+    private NoteViewModel noteViewModel;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        // recycler view
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
+        final NoteAdapter adapter = new NoteAdapter();
+        recyclerView.setAdapter(adapter);
+
+        // noteViewModel
+        noteViewModel = new ViewModelProvider(this).get(NoteViewModel.class);
+        noteViewModel.getAllNotes().observe(this, new Observer<List<Note>>() {
+            @Override
+            public void onChanged(List<Note> notes) {
+                // update recycler view
+                Toast.makeText(MainActivity.this, "data changed", Toast.LENGTH_SHORT).show();
+                adapter.setNotes(notes);
+            }
+        });
     }
 }
 ```
