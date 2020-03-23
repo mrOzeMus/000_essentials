@@ -17,6 +17,8 @@ Return to definition : `Ctrl + b`
 Surround with : `Ctrl + Alt + t`
 zommer dans le layout editor: `Ctrl + shift + "+"`
 pour utiliser une image par defaut pour prototypage: `src: @tools:sample/avatars ou src: @tools:sample/scenic_backgrounds` egalement /lorem et /full_names
+Reformater les lignes : `Ctlr + Alt + l`
+Faire un élément globla a la classe: `Ctrl + Alt + f`
 
 
 ## Questions
