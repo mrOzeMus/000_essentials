@@ -1,7 +1,40 @@
 # Bash scripting Essentials
 
-
 Commande necessaire pour chaque script:
+
+Basic core utils:
+ - grep
+ - sed = edit input stream
+ - awk = general purpose text-processing language
+ - sort
+ - uniq
+ - xargs = run a command using each line from stdin as an argument
+ - tee = copy stdin to a file and to the screen
+
+Linux has three standrad streams:
+ - stdin (file descriptor 0)
+ - stdout (file descriptor 1)
+ - stderr (file descriptor 2)
+
+ stdin is defaults to your keyboard
+ stdout and stderr default to your screen
+Redirection:
+	- '< file' connects a file to stdin
+	- '> file' redirects stdout to a file 
+	- '2> file' redirects stderr to a file 
+	- '&> file' redirects stdout and stderr to a file 
+	- '2>&1' redirects stderr to stdout
+
+vim $(which ls) ouvre le binaire ls
+
+exit code is 'echo $?' 
+
+exemple de commande pour subdomain:
+kali2@DESKTOP-V4DA5C7:~/trash$ while read sub;do echo $sub.com ; done < ~/wordlists/fasttrack.txt
+
+Tres bon tuto
+https://www.youtube.com/watch?v=s9w0KutMorE
+
 
 ```
 #!/bin/bash

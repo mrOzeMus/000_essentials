@@ -1,4 +1,19 @@
-# Chrome debugging
+# Chrome debugging And Chrome dev tools
+
+
+
+
+## Dev tools
+
+Ouvrir panneau console : Ctrl + Shift + J
+Ouvrir dernier panneau : F12 ou Ctrl + Shift + I
+Ouvrir inspection elements : Ctrl + Shift + C
+
+Faire une recherche : Ctrl + F
+
+tuto et tips : https://www.youtube.com/watch?v=FTeE3OrTNoA
+
+## Chrome debugging
 
 console.log()
 console.error()
