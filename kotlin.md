@@ -1,4 +1,10 @@
-# Android Kotlin
+# Kotlin
+
+Définir variable
+    var count: Int = 10     # var si variable peut changer, val si constante
+
+DateTypes
+    Int, Byte, Short, Long, Float, Double, String
 
 ## Set Click Listener
 

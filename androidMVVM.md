@@ -1,5 +1,56 @@
 # Architecture:
 
+## Setup
+
+Dans graddle.properties:
+
+    android.databinding.enableV2=true
+
+Dans build.graddle:
+
+    dependancies{
+        def nav_version = "2.3.5"
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version")
+    }
+
+Dans build.graddle.app:
+
+    apply plugin: 'kotlin-kapt'
+    apply plugin: 'kotlin-android'
+    apply plugin: "androidx.navigation.safeargs"
+    ...
+    buildFeatures{ 
+        dataBinding true
+        viewBinding true
+        }
+    dependancies{
+        def lifecycle_version = "2.3.1"
+        def arch_version = "2.1.0"
+        def fragment_version = "1.3.4"
+        implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+        implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+        implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
+        implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
+        kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+        implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
+        implementation "androidx.lifecycle:lifecycle-service:$lifecycle_version"
+        implementation "androidx.lifecycle:lifecycle-process:$lifecycle_version"
+        implementation "androidx.lifecycle:lifecycle-reactivestreams-ktx:$lifecycle_version"
+        testImplementation "androidx.arch.core:core-testing:$arch_version"
+        implementation "com.squareup.retrofit2:retrofit:2.6.0"
+        implementation "com.squareup.retrofit2:converter-gson:2.6.0"
+        implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1"
+        implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.9"
+        implementation "androidx.room:room-runtime:2.4.0-alpha02"
+        implementation "androidx.room:room-ktx:2.4.0-alpha02"
+        kapt "androidx.room:room-compiler:2.4.0-alpha02"
+        implementation "androidx.navigation:navigation-fragment-ktx:2.4.0-alpha01"
+        implementation "androidx.navigation:navigation-ui-ktx:2.4.0-alpha01"
+        kapt 'com.android.databinding:compiler:3.1.4'
+        implementation "androidx.fragment:fragment-ktx:$fragment_version"
+    }
+
+
 ![mvvm](./img/android/and30.png)
 
 Dans l'ordre on fera:
